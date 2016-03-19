@@ -79,13 +79,13 @@
 						<div class="nav-collapse">
 						  <ul class="nav">
 							<li class="nav.header"></li>
-							<li><a href="index.php?controller=tienda&action=listarTiendas">Tiendas</a></li>
-							<li><a href="index.php?controller=producto&action=listarProductos&filtro=BMX">BMX</a></li>
-							<li><a href="index.php?controller=producto&action=listarProductos&filtro=Carretera">Carretera</a></li>
-							<li><a href="index.php?controller=producto&action=listarProductos&filtro=Fixed">Fixed</a></li>
-							<li><a href="index.php?controller=producto&action=listarProductos&filtro=Montaña">Montaña</a></li>
-							<li><a href="index.php?controller=producto&action=listarProductos&filtro=Ropa">Ropa y accesorios</a></li>
-							<li><a href="index.php?controller=producto&action=listarProductos&filtro=Mecanica">Mecánica</a></li>
+							<li><a href="index.php?controller=tienda&amp;action=listarTiendas">Tiendas</a></li>
+							<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=BMX">BMX</a></li>
+							<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Carretera">Carretera</a></li>
+							<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Fixed">Fixed</a></li>
+							<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Montaña">Montaña</a></li>
+							<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Ropa">Ropa y accesorios</a></li>
+							<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Mecanica">Mecánica</a></li>
 						  </ul>
 
 						  <ul class="nav pull-right">
@@ -103,6 +103,12 @@
 			</div>
 		</div><!-- end nav -->	 
 
+	<!--Mensajes-->
+	<?php if(isset($_SESSION["viewmanager__flasharray__"]["__flashmessage__"])){ ?>
+		<div class="alert alert-success" id="success-alert">
+			<?= $view->popFlash() ?>
+	    </div>
+    <?php } ?>
 	<?= $view->getFragment(ViewManager::DEFAULT_FRAGMENT) ?>   <!-- fragment -->	
 
 	<footer>
@@ -133,4 +139,10 @@
 <script src="js/jquery.rating.pack.js"></script>
 <script src="js/jquery.min.js"></script>
 <script src="bootstrap/js/bootstrap.js"></script>
+
+<script type="text/javascript">
+	$("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
+    $("#success-alert").alert('close');
+	});
+</script>
   

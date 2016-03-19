@@ -30,7 +30,7 @@
 			<div class="span5 well">
 				<h2>Añadir un producto</h2>
 				<p>Añade un producto que estés interesado en vender</p><br />
-				<a href="index.php?controller=producto&amp;action=addproducto" class="btn btn-primary pull-right">Añadir producto</a>
+				<a href="index.php?controller=producto&amp;action=altaproducto" class="btn btn-primary pull-right">Añadir producto</a>
 			</div>
 
 			<div class="span5 well pull-right">

@@ -53,7 +53,7 @@ class ProductoController extends BaseController {
 
   public function listarProductosTienda(){
     $nif=$_GET["id"];
-    $productos = $this->producto->getProductosNif($nif);
+    $productos = $this->producto->getProductos($nif);
     $categorias = $this->producto->getCategorias();
     $this->view->setVariable("productos", $productos);
     $this->view->setVariable("categorias", $categorias);

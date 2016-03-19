@@ -41,6 +41,7 @@ class UsuarioController extends BaseController {
      if (isset($_POST["correo"])){  
       if ($this->usuario->isValidUser($_POST["correo"], $_POST["contra"])) {
           $_SESSION["currentuser"]=$_POST["correo"];
+          $this->view->setFlash("Login correcto!");
           $this->view->redirect("usuario","miCuenta");   
       }else{
         $errors = array();
@@ -94,7 +95,7 @@ class UsuarioController extends BaseController {
 
   		  $this->usuario->save($user);
   		 
-  		  $this->view->setFlash("email ".$user->getemail()." successfully added. Please login now");
+  		  $this->view->setFlash("Tu usuario se ha creado correctamente, ya puedes acceder.");
         $this->view->redirect("usuario","miCuenta");
       }
     }
