@@ -17,7 +17,7 @@
 		<div class="span3 product_list">
 			<ul class="nav">
 				<?php foreach ($categorias as $cat){ ?>
-				<li><a href="index.php?controller=producto&action=listarProductos&filtro=<?php echo $cat->getCategoria()?>"><?php echo $cat->getCategoria()?></a></li>
+				<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=<?php echo $cat->getCategoria()?>"><?php echo $cat->getCategoria()?></a></li>
 				<?php }?>
 			</ul>
 		</div><!-- end sidebar -->		
@@ -25,7 +25,7 @@
 		 <div class="span9"><!--indice -->
 		    <ul class="breadcrumb">
 				<li><a href="index.php">Inicio</a> <span class="divider">/</span></li>
-				<li><a href="index.php?controller=producto&action=listarProductos">Productos</a> <span class="divider">/</span></li>
+				<li><a href="index.php?controller=producto&amp;action=listarProductos">Productos</a> <span class="divider">/</span></li>
 				<li class="active"><a href="#"><?php echo $indice?></a> </li>
 			
 			</ul>
@@ -37,23 +37,15 @@
 		<?php foreach ($productos as $prod){ ?>
 	        <li class="span3">
 	          <div class="thumbnail">
-	            <a href="index.php?controller=producto&action=listarProductos&id=<?php echo $prod->getId()?>"><img alt="foto producto" src= "<?php echo $prod->getFoto()?>" ></a>
+	            <a href="index.php?controller=producto&amp;action=listarProductos&amp;id=<?php echo $prod->getId()?>"><img alt="foto producto" src= "<?php echo $prod->getFoto()?>" ></a>
 	            <div class="caption">
-	               <a href="index.php?controller=producto&action=listarProductos&id=<?php echo $prod->getId()?>"><h5><?php echo $prod->getNombre() ?></h5></a>
+	               <a href="index.php?controller=producto&amp;action=listarProductos&amp;id=<?php echo $prod->getId()?>"><h5><?php echo $prod->getNombre() ?></h5></a>
 	            </div>
 	          </div>
 	        </li>
 	        <?php } ?>				
       </ul>
 	  </div><!-- end producto -->
- 
-	  
-
-	  
-	  
-
-	  
 		</div>
-
       </div>
     </div>

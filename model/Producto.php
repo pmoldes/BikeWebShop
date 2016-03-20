@@ -20,13 +20,14 @@ class Producto {
   private $producto_foto;
   private $producto_nuevo;
   private $us_nif;
+  private $producto_eliminado;
 
   //constructor
    
   public function __construct($producto_id=NULL, $producto_nombre=NULL, $producto_modalidad=NULL, 
                               $producto_categoria=NULL, $producto_descripcion=NULL,
                               $producto_precio=NULL,$producto_cantidad=NULL,$producto_foto=NULL,
-                              $producto_nuevo=NULL,$us_nif=NULL) {
+                              $producto_nuevo=NULL,$us_nif=NULL, $producto_eliminado=NULL) {
 	   $this->db = PDOConnection::getInstance();
      $this->producto_id = $producto_id; 
      $this->producto_nombre = $producto_nombre;
@@ -38,6 +39,8 @@ class Producto {
      $this->producto_foto = $producto_foto; 
      $this->producto_nuevo = $producto_nuevo;
      $this->us_nif = $us_nif;
+     $this->producto_eliminado = $producto_eliminado;
+
    }
    
   //Getters y setters
@@ -121,10 +124,18 @@ class Producto {
     $this->us_nif = $us_nif;
   }
 
+  public function getEliminado() {
+    return $this->producto_eliminado;
+  }
+
+  public function setEliminado($producto_eliminado) {
+    $this->producto_eliminado = $producto_eliminado;
+  }
+
   //Funciones de base de datos 
   
   public function save($producto,$nif) {
-    $stmt = $this->db->prepare("INSERT INTO producto values ('',?,?,?,?,?,?,?,?,?)");
+    $stmt = $this->db->prepare("INSERT INTO producto values ('',?,?,?,?,?,?,?,?,?,'0')");
     $stmt->execute(array($producto->getNombre(), $producto->getModalidad(),$producto->getCategoria(),
                           $producto->getDescripcion(), $producto->getPrecio(),
                           $producto->getCantidad(), $producto->getFoto(),$producto->getNuevo(),
@@ -144,7 +155,7 @@ class Producto {
   }
 
   public function bajaProducto($producto_id, $us_nif){
-    $stmt = $this->db->prepare("DELETE FROM producto WHERE producto_id = ? AND us_nif = ?");
+    $stmt = $this->db->prepare("UPDATE producto set producto_eliminado = '1' WHERE producto_id = ? AND us_nif = ?");
     $stmt->execute(array($producto_id, $us_nif));
 
     return true;
@@ -152,7 +163,9 @@ class Producto {
   }
 
   public function getProductos($filtro){
-    $stmt = $this->db->prepare("SELECT * FROM producto WHERE `producto_modalidad` = ? or `producto_categoria` = ? or `us_nif` = ? ");  
+    $stmt = $this->db->prepare("SELECT * FROM producto 
+                                WHERE `producto_modalidad` = ? OR `producto_categoria` = ? OR `us_nif` = ? 
+                                AND producto_eliminado != 1");  
     $stmt -> execute(array($filtro,$filtro,$filtro));
     $producto_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $array_producto=array();
@@ -169,7 +182,7 @@ class Producto {
   }
 
   public function getTodosProductos(){
-    $stmt = $this->db->prepare("SELECT * FROM producto");  
+    $stmt = $this->db->prepare("SELECT * FROM producto WHERE producto_eliminado != 1");  
     $stmt -> execute();
     $producto_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $array_producto=array();
@@ -188,7 +201,7 @@ class Producto {
   public function getProductosPopulares(){
     $stmt = $this->db->prepare("SELECT count(*) as cuenta, P.`producto_id`, P.`producto_nombre`, P.`producto_precio`, P.`producto_foto`
                                 FROM producto P, comentarios C 
-                                WHERE P.`producto_id`= C.`producto_id` 
+                                WHERE P.`producto_id`= C.`producto_id` AND producto_eliminado != 1
                                 group by P.`producto_id` 
                                 order by cuenta desc
                                 limit 8");  
@@ -205,42 +218,11 @@ class Producto {
       return NULL;
   }
 
-  /*public function getProductoModalidad($modalidad){
-    $stmt = $this->db->prepare("SELECT * FROM producto WHERE `producto_modalidad` = ?");  
-    $stmt -> execute(array($modalidad));
-    $producto_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $array_producto=array();
-    foreach($producto_db as $producto){
-      array_push($array_producto, new Producto($producto["producto_id"], $producto["producto_nombre"], $producto["producto_modalidad"],
-                                        $producto["producto_categoria"],$producto["producto_descripcion"], $producto["producto_precio"],
-                                        $producto["producto_cantidad"],$producto["producto_foto"], $producto["producto_nuevo"], 
-                                        $producto["us_nif"]));
-    }
-    if(!empty($array_producto))
-      return $array_producto;
-    else
-      return NULL;
-  }
-
-  public function getProductoCategoria($categoria){
-    $stmt = $this->db->prepare("SELECT * FROM producto WHERE `producto_categoria` = ?");  
-    $stmt -> execute(array($categoria));
-    $producto_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $array_producto=array();
-    foreach($producto_db as $producto){
-      array_push($array_producto, new Producto($producto["producto_id"], $producto["producto_nombre"], $producto["producto_modalidad"],
-                                        $producto["producto_categoria"],$producto["producto_descripcion"], $producto["producto_precio"],
-                                        $producto["producto_cantidad"],$producto["producto_foto"], $producto["producto_nuevo"], 
-                                        $producto["us_nif"]));
-    }
-    if(!empty($array_producto))
-      return $array_producto;
-    else
-      return NULL;
-  }*/
-
   public function getCategorias(){
-    $stmt = $this->db->prepare("SELECT DISTINCT producto_categoria  FROM producto ORDER BY 1");  
+    $stmt = $this->db->prepare("SELECT DISTINCT producto_categoria  
+                                FROM producto 
+                                WHERE producto_eliminado != 1 
+                                ORDER BY 1");  
     $stmt -> execute();
     $producto_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $array_producto=array();
@@ -263,42 +245,14 @@ class Producto {
     return $id["producto_id"];
   }
 
-  // public function contarProductos(){
-  //   $stmt = $this->db->prepare("SELECT count(producto_id) FROM producto ");  
-  //   $stmt -> execute(array($producto_id));
-  //   if ($stmt->fetchColumn() > 1) {
-  //     return true;        
-  //   }
-  //   else 
-  //     return false;
-  // }
-
-  /*public function getProductosNif($Nif){
-    $stmt = $this->db->prepare("SELECT * FROM producto WHERE `us_nif` = ?");  
-    $stmt -> execute(array($Nif));
-    $producto_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $array_producto=array();
-    foreach($producto_db as $producto){
-      array_push($array_producto, new Producto($producto["producto_id"], $producto["producto_nombre"], $producto["producto_modalidad"],
-                                        $producto["producto_categoria"],$producto["producto_descripcion"], $producto["producto_precio"],
-                                        $producto["producto_cantidad"],$producto["producto_foto"], $producto["producto_nuevo"], 
-                                        $producto["us_nif"]));
-    }
-    if(!empty($array_producto))
-      return $array_producto;
-    else
-      return NULL;
-  }*/
-
   public function getDetallesProducto($producto_id){
     $stmt = $this->db->prepare("SELECT * FROM producto WHERE `producto_id` = ?");  
     $stmt -> execute(array($producto_id));
     $producto_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $array_producto=array();
     foreach($producto_db as $producto){
-      array_push($array_producto, new Producto($producto["producto_id"], $producto["producto_nombre"], $producto["producto_modalidad"],
-                                        $producto["producto_categoria"],$producto["producto_descripcion"], $producto["producto_precio"],
-                                        $producto["producto_cantidad"],$producto["producto_foto"], $producto["producto_nuevo"], 
+      array_push($array_producto, new Producto($producto["producto_id"], $producto["producto_nombre"],
+      $producto["producto_modalidad"],$producto["producto_categoria"],$producto["producto_descripcion"], $producto["producto_precio"],$producto["producto_cantidad"],$producto["producto_foto"], $producto["producto_nuevo"], 
                                         $producto["us_nif"]));
     }
     if(!empty($array_producto))

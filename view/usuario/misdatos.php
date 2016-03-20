@@ -104,9 +104,7 @@
 								</div>
 							  </div>
 							</div>
-						</div>
-
-						
+						</div>			
 						<div class=" span12 ">
 							<hr>
 							 <div class="span3"><button class="btn btn-primary btn-large pull-right" type="submit">Modificar Datos</button></div>
@@ -213,7 +211,7 @@
         required: "Campo vacío",
         digits: "Telefono no valido (111222333)",
         minlength: "Telefono no valido (111222333)",
-    	maxlength: "Telefono no valido (111222333)"
+    	  maxlength: "Telefono no valido (111222333)"
       },
       direccion: {
         required: "Campo vacío",

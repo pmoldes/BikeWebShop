@@ -18,12 +18,14 @@ class Comentario {
   private $comentario_valoracion;
   private $producto_id;
   private $us_nif;
+  private $comentario_eliminado;
   
 
   //constructor
    
   public function __construct($comentario_id=NULL, $comentario_titulo=NULL, $comentario_texto=NULL,
-    $comentario_autor=NULL,$comentario_valoracion=NULL,$producto_id=NULL, $us_nif=NULL) {
+                              $comentario_autor=NULL,$comentario_valoracion=NULL,$producto_id=NULL, 
+                              $us_nif=NULL,$comentario_eliminado=NULL) {
 	   $this->db = PDOConnection::getInstance();
     
      $this->comentario_id = $comentario_id;
@@ -33,7 +35,7 @@ class Comentario {
      $this->comentario_valoracion = $comentario_valoracion;
      $this->producto_id = $producto_id; 
      $this->us_nif = $us_nif; 
-
+     $this->comentario_eliminado = $comentario_eliminado; 
    }
    
   //Getters y setters
@@ -96,17 +98,24 @@ class Comentario {
     $this->us_nif = $us_nif;
   }
 
+  public function getEliminado() {
+    return $this->comentario_eliminado;
+  }
+
+  public function setEliminado($comentario_eliminado) {
+    $this->comentario_eliminado = $comentario_eliminado;
+  }
 
   //Funciones de base de datos 
   
   public function save($comentario) {
-    $stmt = $this->db->prepare("INSERT INTO comentarios values ('',?,?,?,?,?,?)");
+    $stmt = $this->db->prepare("INSERT INTO comentarios values ('',?,?,?,?,?,?,'0')");
     $stmt->execute(array($comentario->getTitulo(), $comentario->getTexto(),$comentario->getAutor(),
       $comentario->getValoracion(),$comentario->getProductoId(),$comentario->getNif()));  
   }
 
   public function getComentarios($producto_id){
-    $stmt = $this->db->prepare("SELECT * FROM comentarios WHERE producto_id=? ");  
+    $stmt = $this->db->prepare("SELECT * FROM comentarios WHERE producto_id=? AND comentario_eliminado != '1'");  
     $stmt -> execute(array($producto_id));
     $comentario_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $array_comentario=array();
@@ -150,7 +159,8 @@ class Comentario {
   }
 
   public function bajaComentario($comentario_id, $us_nif){
-    $stmt = $this->db->prepare("DELETE FROM comentarios WHERE comentario_id = ? AND us_nif = ?");
+    $stmt = $this->db->prepare("UPDATE comentarios set comentario_eliminado = '1' 
+                                WHERE comentario_id = ? AND us_nif = ?");
     $stmt->execute(array($comentario_id, $us_nif));
 
     return true;

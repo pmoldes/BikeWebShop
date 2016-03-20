@@ -89,8 +89,6 @@ class ProductoController extends BaseController {
   public function altaProducto() {
     $errors="";
     if (isset($_SESSION["currentuser"])){
-      
-
       if (isset($_POST["producto_nombre"])){ // reaching via HTTP Post...
           
           $producto_nif=$this->producto->obtenerNif($_SESSION["currentuser"]);
@@ -110,7 +108,6 @@ class ProductoController extends BaseController {
           $uploadOk = 1;
           $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
           // Check if image file is a actual image or fake image
-          
           $check = getimagesize($_FILES["producto_foto"]["tmp_name"]);
           if($check !== false) {
               $uploadOk = 1;
@@ -141,10 +138,8 @@ class ProductoController extends BaseController {
                    $errors = $errors. "Lo sentimos, se ha producido un error, intentalo de nuevo";
               }
           }
-
           $this->view->setVariable("errors",$errors);
           $this->view->render("productos","altaproducto");
-          
         }
       else
         $this->view->render("productos","altaproducto");
@@ -169,7 +164,7 @@ class ProductoController extends BaseController {
           $new_producto->setNuevo($_POST["producto_nuevo"]);
 
           $this->producto->modificarProducto($new_producto,$_POST["producto_id"]);
-         
+          $this->view->setFlash("Datos modificados correctamente.");
           $this->view->redirect("producto","listarMisProductos");
         }
       else
@@ -186,6 +181,7 @@ class ProductoController extends BaseController {
     if (isset($_SESSION["currentuser"])){
       $nif=$this->producto->obtenerNif($_SESSION["currentuser"]);
       $this->producto->bajaProducto($_GET["id"],$nif);
+      $this->view->setFlash("Producto eliminado");
       $this->view->redirect("producto","listarMisProductos");
 
     }
@@ -210,7 +206,7 @@ class ProductoController extends BaseController {
       $new_comentario->setAutor($autor);
 
       $new_comentario->save($new_comentario);
-
+      $this->view->setFlash("Comentario guardado");
       $this->view->redirect("producto","detallesproducto","id=".$_GET["id"]);
     }
     else{
@@ -222,6 +218,7 @@ class ProductoController extends BaseController {
     if (isset($_SESSION["currentuser"])){
       $nif=$this->comentario->obtenerNif($_SESSION["currentuser"]);
       $this->comentario->bajaComentario($_GET["idComentario"],$nif);
+      $this->view->setFlash("Comentario eliminado");
       $this->view->redirect("producto","detallesproducto","id=".$_GET["idProducto"]);
 
     }
@@ -242,7 +239,7 @@ class ProductoController extends BaseController {
         $new_comentario->setTexto($_POST["mod_texto"]);
 
         $new_comentario->modificarcomentario($new_comentario,$_POST["comentario_id"]);
-         
+        $this->view->setFlash("Comentario modificado");
         $this->view->redirect("producto","detallesproducto","id=".$_GET["id"]);
         }
       else

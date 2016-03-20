@@ -42,7 +42,7 @@ class TiendaController extends BaseController {
         $newTienda->setusNif($us_nif);
         
         $this->tienda->save($newTienda);
-       
+        $this->view->setFlash("Tienda añadida correctamente");
         $this->view->redirect("tienda","miTienda");
       }
       $this->view->render("tienda","altatienda"); 
@@ -50,8 +50,6 @@ class TiendaController extends BaseController {
     else{
       $this->view->render("usuario", "acceso");
     }
-   
-    
   }
 
 
@@ -68,9 +66,8 @@ class TiendaController extends BaseController {
       $tienda->setEmail($_POST["correo"]);
 
       $this->tienda->modificarTienda($tienda,$us_nif);
+      $this->view->setFlash("Datos modificados correctamente");
       $this->view->redirect("tienda","mitienda");
-        
-    
     }else{
       $this->view->render("usuario", "acceso");
     }
@@ -81,6 +78,7 @@ class TiendaController extends BaseController {
       $us_nif=$this->tienda->obtenerNif($_SESSION["currentuser"]);//obtener nif a partir del email
       if($this->tienda->existeTienda($us_nif)){
         $this->tienda->bajaTienda($us_nif);
+        $this->view->setFlash("Tienda eliminada correctamente");
         $this->view->redirect("usuario", "micuenta");
       }
       else{

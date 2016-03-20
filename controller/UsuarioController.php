@@ -107,6 +107,7 @@ class UsuarioController extends BaseController {
   public function bajaUsuario(){
     if (isset($_SESSION["currentuser"])){
       if($this->usuario->bajaUsuario($_SESSION["currentuser"]))
+        $this->view->setFlash("Tu cuenta se ha dado de baja correctamente");
         $this->view->redirect("usuario", "logout");
     }
     else{
@@ -152,6 +153,7 @@ class UsuarioController extends BaseController {
           $_SESSION["currentuser"] = $_POST["correo"];
           $this->view->redirect("usuario","consultarUsuario");
         }
+        $this->view->setFlash("Datos modificados correctamente");
     
     }else{
       $this->view->render("usuario", "acceso");
