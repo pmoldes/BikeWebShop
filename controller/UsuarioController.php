@@ -24,6 +24,13 @@ class UsuarioController extends BaseController {
     $this->view->render("usuario", "home"); 
   }
 
+  public function about(){
+    $this->view->setlayout('default');
+    $categorias = $this->producto->getCategorias();
+    $populares = $this->producto->getProductosPopulares();
+    $this->view->render("usuario", "about"); 
+  }
+
 
   public function miCuenta(){
     if(!isset($_SESSION["currentuser"]))

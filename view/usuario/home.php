@@ -17,54 +17,39 @@
     <div class="span3 product_list">
       <ul class="nav">
         <?php foreach ($categorias as $cat){ ?>
-        <li><a href="index.php?controller=producto&action=listarProductos&filtro=<?php echo $cat->getCategoria()?>"><?php echo $cat->getCategoria()?></a></li>
+        <li>
+        <a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=<?php echo $cat->getCategoria()?>">
+        <?php echo $cat->getCategoria()?></a>
+        </li>
         <?php }?>
       </ul>
     </div><!-- end sidebar -->  
 	</div>
     <div class="span9">
-
-		<div id="myCarousel" class="carousel slide">
-            <div class="carousel-inner">
-              <div class="item active">
-				<img src="css/images/carousel_1.jpg" alt="">
-                <div class="carousel-caption">
-                  <h4>Mountain Bike</h4>
-                  <p>Mountain Bike</p>
-                </div>
-              </div>
-              <div class="item">
-                <img src="css/images/carousel_2.jpg" alt="">
-                <div class="carousel-caption">
-                  <h4>Fixed</h4>
-                  <p>Fixed</p>
-                </div>
-              </div>
-			  <div class="item">
-				<img src="css/images/carousel_3.jpg" alt="">
-                <div class="carousel-caption">
-                  <h4>BMX</h4>
-                  <p>BMX</p>
-              </div>
-             </div>
-             <div class="item">
-				<img src="css/images/carousel_4.jpg" alt="">
-                <div class="carousel-caption">
-                  <h4>Carretera</h4>
-                  <p>Carretera</p>
-                </div>
-              </div>
-            </div>
-
-            <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-            <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+  		<div id="myCarousel" class="carousel slide">
+          <div class="carousel-inner">
+            <div class="item active">
+    				<img src="css/images/carousel_1.jpg" alt="">
+          </div>
+          <div class="item">
+            <img src="css/images/carousel_2.jpg" alt="">
+          </div>
+  			  <div class="item">
+  	        <img src="css/images/carousel_3.jpg" alt="">
+          </div>
+          <div class="item">
+		        <img src="css/images/carousel_4.jpg" alt="">
           </div>
           </div>
+          <a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+          <a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+        </div>
+      </div>
 		  
 		  
 		  
 		<div class="span7 popular_products">
-  		<h4>Productos populares</h4><br />
+  		<h2>Productos populares</h2><br />
   		<ul class="thumbnails">
          <?php foreach ($populares as $popular) { ?>
           <li class="span2">
@@ -106,6 +91,14 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="js/jquery.min.js"></script>
 <script src="bootstrap/js/bootstrap.js"></script>
-<script src="js/jquery.rating.pack.js"></script>
+<script src="js/owl.carousel.js"></script>
+
+<script>
+$(document).ready(function() {
+    $('.carousel').carousel({
+      interval: 2500
+    })
+  });
+</script>
 
 

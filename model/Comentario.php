@@ -39,8 +39,6 @@ class Comentario {
    }
    
   //Getters y setters
-  
-  
 
   public function getComentarioID() {
     return $this->comentario_id;

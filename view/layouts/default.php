@@ -20,11 +20,6 @@
     <!--<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">-->
     <link href="css/main.css" rel="stylesheet">
     <link href="css/jquery.rating.css" rel="stylesheet">
-
-    <!--[if lt IE 9]>
-      <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
   </head>
 
   <body>
@@ -37,30 +32,30 @@
 			</a>
 			</div>
 			<div class="span8">
-			
-				<div class="row">
+				<!-- <div class="row">
 					<div class="links pull-right">
 						<div class="span2">
 							<a href="cart.html"><h4>Carrito</h4></a>
 							<a href="cart.html">2 producto(s) - 30€</a>
 						</div>
-
 						<div class="span3 customer_service">
 							<h4>Envio gratuito en pedidos superiores a 50 euros</h4>
 							<h4><small>Atencion al cliente: 0800 8475 548</small></h4>
 						</div>
 					</div>	
-				</div>
-				<br />
-				<div class="row">
-					<div class="links pull-right">
+				</div> -->
+				</br>
+				</br>
+				</br>
+				</br>
+				<div class="row pull-right pull-down">
+					<div class="links">
 						<a href="home.php">Inicio</a> |
 						<a href="index.php?controller=usuario&amp;action=miCuenta">Mi Cuenta</a> |
-						<a href="cart.html">Carrito de la compra</a> |
-						<a href="two-column.html">Acerca de</a> |
-						<a href="contact.html">Contacto</a>
+						<a href="index.php?controller=usuario&amp;action=about">Carrito de la compra</a> |
+						<a href="index.php?controller=usuario&amp;action=about">Acerca de</a> |
+						<a href="index.php?controller=usuario&amp;action=about">Contacto</a>
 					</div>
-				
 				</div>
 			</div>
 		</div><!-- end header -->
@@ -72,7 +67,6 @@
 					  <div class="container" style="width: auto;">
 						<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 						  <span class="icon-bar"></span>
-
 						  <span class="icon-bar"></span>
 						  <span class="icon-bar"></span>
 						</a>
@@ -118,17 +112,14 @@
 	<div class="span3">
 		<h4>Informacion</h4>
 		<ul>
-			<li><a href="two-column.html">Sobre nosotros</a></li>
-			<li><a href="typography.html">Informacion de envio</a></li>
-			<li><a href="typography.html">Devoluciones</a></li>
-			<li><a href="typography.html">Terminos y condiciones</li>
+			<li><a href="index.php?controller=usuario&amp;action=about">Sobre nosotros</a></li>
+			<li><a href="index.php?controller=usuario&amp;action=about">Informacion de envio</a></li>
+			<li><a href="index.php?controller=usuario&amp;action=about">Devoluciones</a></li>
+			<li><a href="index.php?controller=usuario&amp;action=about">Terminos y condiciones</li>
 		</ul>
 	</div>
 
 	</div>
-	
-	
-
 	</footer>
 
 </div> <!-- /container -->
