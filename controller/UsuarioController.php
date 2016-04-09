@@ -46,7 +46,10 @@ class UsuarioController extends BaseController {
 
   public function acceso() {
      if (isset($_POST["correo"])){  
-      if ($this->usuario->isValidUser($_POST["correo"], $_POST["contra"])) {
+      //if ($this->usuario->isValidUser($_POST["correo"], $_POST["contra"])) {
+      $hash_pass = $this->usuario->getPass($_POST["correo"]);;
+      $check = password_verify($_POST["contra"], $hash_pass);
+      if ($check) {
           $_SESSION["currentuser"]=$_POST["correo"];
           $this->view->setFlash("Login correcto!");
           $this->view->redirect("usuario","miCuenta");   
@@ -93,7 +96,7 @@ class UsuarioController extends BaseController {
         $user->setNif($_POST["nif"]);
         $user->setEmail($_POST["correo"]);
         $user->setUsername($_POST["username"]);
-        $user->setPassword($_POST["contra"]);
+        $user->setPassword(password_hash($_POST["contra"], PASSWORD_DEFAULT));
         $user->setNombre($_POST["nombre"]);
         $user->setApellidos($_POST["apellidos"]);
         $user->setDireccion($_POST["direccion"]);

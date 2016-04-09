@@ -1,5 +1,6 @@
 DROP SCHEMA IF EXISTS DB_TIENDA;
 CREATE SCHEMA IF NOT EXISTS DB_TIENDA DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+grant all privileges on DB_TIENDA.* to admin@localhost identified by "admin";
 USE DB_TIENDA ;
 
 -- -----------------------------------------------------
@@ -11,7 +12,7 @@ CREATE TABLE IF NOT EXISTS DB_TIENDA.usuarios (
   us_nif VARCHAR(9) NOT NULL,
   us_email VARCHAR(50) NULL,
   us_username VARCHAR(30) NULL,
-  us_password VARCHAR(50) NULL,
+  us_password VARCHAR(255) NULL,
   us_nombre VARCHAR(40) NULL,
   us_apellidos VARCHAR(100) NULL,
   us_direccion VARCHAR(100) NULL,
@@ -137,18 +138,15 @@ CREATE TABLE IF NOT EXISTS DB_TIENDA.Interes (
 ENGINE = InnoDB;
 
 
-
-grant all privileges on DB_TIENDA.* to admin@localhost identified by "admin";
-
 INSERT INTO DB_TIENDA.usuarios(us_nif,us_email,us_username,us_password,us_nombre,us_apellidos,us_direccion,us_codigo_postal,us_telefono,us_rol)
   VALUES
-    ('00000000A','admin@admin.com','admin','123456','Administrador','Maximo','Administracion','00000','111222333','3'),
-    ('11111111B','tienda@tienda.com','tienda','123456','Carlos','Carlos','Ourense','00000','111222333','2'),
-    ('22222222C','tienducha@tienda.com','tienducha','123456','Jorge','Jorge','Vigo','00000','111222333','2'),
-    ('33333333D','user@user.com','user','123456','Tomas','Tomas','Lugo','00000','111222333','1'),
-    ('44444444E','random@hey.com','random','123456','Samuel','Samuel','Pontevedra','00000','111222333','1'),
-    ('55555555F','alex@cromoly.com','alex','123456','Alex','Alex','Santiago','00000','111222333','2'),
-    ('66666666G','javi@uvigo.com','javi','123456','Oscar','Maximo','Coruña','00000','111222333','2');
+    ('00000000A','admin@admin.com','admin','$2y$10$0UQCDSRowRBnJXnOcS5QYeTjjo4xh8b/l6DTZZWZ35j4Bnacgk5/m','Administrador','Maximo','Administracion','00000','111222333','3'),
+    ('11111111B','tienda@tienda.com','tienda','$2y$10$0UQCDSRowRBnJXnOcS5QYeTjjo4xh8b/l6DTZZWZ35j4Bnacgk5/m','Carlos','Carlos','Ourense','00000','111222333','2'),
+    ('22222222C','tienducha@tienda.com','tienducha','$2y$10$0UQCDSRowRBnJXnOcS5QYeTjjo4xh8b/l6DTZZWZ35j4Bnacgk5/m','Jorge','Jorge','Vigo','00000','111222333','2'),
+    ('33333333D','user@user.com','user','$2y$10$0UQCDSRowRBnJXnOcS5QYeTjjo4xh8b/l6DTZZWZ35j4Bnacgk5/m','Tomas','Tomas','Lugo','00000','111222333','1'),
+    ('44444444E','random@hey.com','random','$2y$10$0UQCDSRowRBnJXnOcS5QYeTjjo4xh8b/l6DTZZWZ35j4Bnacgk5/m','Samuel','Samuel','Pontevedra','00000','111222333','1'),
+    ('55555555F','alex@cromoly.com','alex','$2y$10$0UQCDSRowRBnJXnOcS5QYeTjjo4xh8b/l6DTZZWZ35j4Bnacgk5/m','Alex','Alex','Santiago','00000','111222333','2'),
+    ('66666666G','javi@uvigo.com','javi','$2y$10$0UQCDSRowRBnJXnOcS5QYeTjjo4xh8b/l6DTZZWZ35j4Bnacgk5/m','Oscar','Maximo','Coruña','00000','111222333','2');
 
 INSERT INTO DB_TIENDA.tiendas(tienda_id, tienda_nombre, tienda_direccion, tienda_telefono, tienda_email, us_nif) 
 VALUES 
@@ -180,7 +178,7 @@ VALUES
     ('16','Puños Odyssey Aaron Ross','BMX','Puños','Puños Odyssey by Aaron Ross','9','10','css/images/aaron_ross_grips.gif','1','11111111B');
 
 
-INSERT INTO comentarios(comentario_id, comentario_titulo, comentario_texto, 
+INSERT INTO DB_TIENDA.comentarios(comentario_id, comentario_titulo, comentario_texto, 
                           comentario_autor, comentario_valoracion, producto_id, us_nif) 
 VALUES 
   ('1','Muy recomendado','Me encantaron los pedales, van perfectos, son muy ligeros pero tambien resistentes, recomiendo su comopra sin dudarlo.','Tomas','5','14','33333333D'),

@@ -94,7 +94,8 @@
 								<div class="controls docs-input-sizes">
 								  <input type="password" placeholder="" class="span4" name="contra" id="contra">
 								</div>
-							  </div>					  <div class="control-group">
+							  </div>
+                <div class="control-group">
 								<label class="control-label">Confirmar contraseña</label>
 								<div class="controls docs-input-sizes">
 								  <input type="password" placeholder="" class="span4" name= "contra2" id="contra2">
@@ -140,7 +141,7 @@
     rules: {
       nif: {
         required: true,
-        nif:true
+        //nif:true
       },
       nombre: {
         required: true,

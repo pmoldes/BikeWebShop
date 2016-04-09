@@ -164,7 +164,7 @@ class Producto {
 
   public function getProductos($filtro){
     $stmt = $this->db->prepare("SELECT * FROM producto 
-                                WHERE `producto_modalidad` = ? OR `producto_categoria` = ? OR `us_nif` = ? 
+                                WHERE (`producto_modalidad` = ? OR `producto_categoria` = ? OR `us_nif` = ?) 
                                 AND producto_eliminado != 1");  
     $stmt -> execute(array($filtro,$filtro,$filtro));
     $producto_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -211,6 +211,26 @@ class Producto {
     foreach($producto_db as $producto){
       array_push($array_producto, new Producto($producto["producto_id"], $producto["producto_nombre"], NULL,NULL,NULL, 
                                               $producto["producto_precio"],NULL,$producto["producto_foto"], NULL,NULL));
+    }
+    if(!empty($array_producto))
+      return $array_producto;
+    else
+      return NULL;
+  }
+
+  public function buscarProductos($filtro){
+    
+    $stmt = $this->db->prepare("SELECT * FROM producto WHERE (`producto_modalidad` LIKE '{$filtro}' OR
+    `producto_categoria` LIKE '{$filtro}' OR `producto_nombre` LIKE '{$filtro}') AND producto_eliminado != 1");
+    
+    $stmt->execute();
+    $producto_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    $array_producto=array();
+
+    foreach($producto_db as $producto){
+      array_push($array_producto, new Producto($producto["producto_id"], $producto["producto_nombre"], $producto["producto_modalidad"],$producto["producto_categoria"],$producto["producto_descripcion"], $producto["producto_precio"],$producto["producto_cantidad"],$producto["producto_foto"], $producto["producto_nuevo"], 
+        $producto["us_nif"]));
     }
     if(!empty($array_producto))
       return $array_producto;

@@ -33,7 +33,17 @@
 	    	<a href="#"><?php echo $indice ?></a> 
 	    </li>
     </ul><!-- End Indice -->
-	
+	<?php if(empty($productos)){ ?>
+	<div class="row">
+		<div class="span6">
+		<h4>La búsqueda "<?php echo $indice ?>" no coincide con ningún resultado </h4>
+		<p>Pruebe algo como:<br/>
+			<li>Usando términos más generales
+			<li>Verificando la ortografía
+		</p>
+		</div>
+	</div>
+	<?php }else ?>
 	<?php foreach ($productos as $prods){?>
 	 <div class="row">
 	 <div class="span1">

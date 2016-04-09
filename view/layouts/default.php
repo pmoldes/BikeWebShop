@@ -17,13 +17,12 @@
 
     <!-- Estilos -->
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-    <!--<link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">-->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
     <link href="css/jquery.rating.css" rel="stylesheet">
   </head>
 
   <body>
-
     <div class="container">
 		<div class="row"><!-- start header -->
 			<div class="span4 logo">
@@ -50,7 +49,7 @@
 				</br>
 				<div class="row pull-right pull-down">
 					<div class="links">
-						<a href="home.php">Inicio</a> |
+						<a href="index.php">Inicio</a> |
 						<a href="index.php?controller=usuario&amp;action=miCuenta">Mi Cuenta</a> |
 						<a href="index.php?controller=usuario&amp;action=about">Carrito de la compra</a> |
 						<a href="index.php?controller=usuario&amp;action=about">Acerca de</a> |
@@ -61,40 +60,42 @@
 		</div><!-- end header -->
 		
 		<div class="row"><!-- start nav -->
-			<div class="span12">
-			  <div class="navbar">
-					<div class="navbar-inner">
-					  <div class="container" style="width: auto;">
-						<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-						  <span class="icon-bar"></span>
-						  <span class="icon-bar"></span>
-						  <span class="icon-bar"></span>
-						</a>
-						<div class="nav-collapse">
-						  <ul class="nav">
-							<li class="nav.header"></li>
-							<li><a href="index.php?controller=tienda&amp;action=listarTiendas">Tiendas</a></li>
-							<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=BMX">BMX</a></li>
-							<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Carretera">Carretera</a></li>
-							<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Fixed">Fixed</a></li>
-							<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Montaña">Montaña</a></li>
-							<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Ropa">Ropa y accesorios</a></li>
-							<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Mecanica">Mecánica</a></li>
-						  </ul>
+		<div class="span12">
+		  <div class="navbar">
+			<div class="navbar-inner">
+			  <div class="container" style="width: auto;">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				  <span class="icon-bar"></span>
+				  <span class="icon-bar"></span>
+				  <span class="icon-bar"></span>
+				</a>
+				<div class="nav-collapse">
+				  <ul class="nav">
+					<li class="nav.header"></li>
+					<li><a href="index.php?controller=tienda&amp;action=listarTiendas">Tiendas</a></li>
+					<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=BMX">BMX</a></li>
+					<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Carretera">Carretera</a></li>
+					<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Fixed">Fixed</a></li>
+					<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Montaña">Montaña</a></li>
+					<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Ropa">Ropa y accesorios</a></li>
+					<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Mecanica">Mecánica</a></li>
+				  </ul>
 
-						  <ul class="nav pull-right">
-						   <li class="divider-vertical"></li>
-							<form class="navbar-search" action="">
-								<input type="text" class="search-query span2" placeholder="Buscar">
-								<button class="btn btn-primary btn-small search_btn" type="submit">GO!</button>
-							</form>
-							
-						  </ul>
-						</div><!-- /.nav-collapse -->
-					  </div>
-					</div><!-- /navbar-inner -->
-				</div><!-- /navbar -->
-			</div>
+				  <ul class="nav pull-right">
+				   <li class="divider-vertical"></li>
+					<form id="searchForm" class="navbar-search"  method="POST" action="index.php?controller=producto&amp;action=buscarProductos">
+						<fieldset>
+						<input name="filtro" type="text" class="search-query span2" placeholder="Buscar">
+						<button class="btn btn-primary btn-small search_btn" type="submit">GO!</button>
+						</fieldset>
+					</form>
+					
+				  </ul>
+				</div><!-- /.nav-collapse -->
+			  </div>
+			</div><!-- /navbar-inner -->
+			</div><!-- /navbar -->
+		</div>
 		</div><!-- end nav -->	 
 
 	<!--Mensajes-->

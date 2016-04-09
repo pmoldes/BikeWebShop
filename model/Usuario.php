@@ -180,6 +180,16 @@ class Usuario {
     }
   }
 
+  public function getPass($us_email) {
+    $stmt = $this->db->prepare("SELECT us_password
+                                FROM usuarios 
+                                where us_email=? AND us_eliminado!= '1'");
+    $stmt->execute(array($us_email));
+    $password = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $password["us_password"];
+  }
+
   public function bajaUsuario($us_email){
     $stmt = $this->db->prepare("UPDATE usuarios SET us_eliminado='1' WHERE us_email=?");
     $stmt->execute(array($us_email));
