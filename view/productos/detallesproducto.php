@@ -46,7 +46,7 @@
 		<hr>
 		<div class="row">
 			<div class="span3">
-				<img alt="" src="<?php echo $producto[0]->getFoto() ?>" />
+				<img alt="" class="img-responsive" src="<?php echo $producto[0]->getFoto() ?>" />
 			</div>	 
 		  	<div class="span6">
 					<strong>Stock:</strong> <span><?php echo $producto[0]->getCantidad() ?></span><br />
@@ -176,9 +176,6 @@
 										    </div><!--cierre modal content-->
 										  </div> <!--cierre modal dialog-->
 									    </div> <!-- fin Modal modificarcomentario -->   
-
-
-
 						    		<?php } ?><!-- Fin if de comprobar autor -->
 						    	</div>
 						    	<hr>
@@ -241,13 +238,11 @@
 					
 				    </div>
 			    </div>
-
 			</div>
 		</div>
 	</div>
 </div>	 
 	 
-<script src="js/jquery.rating.pack.js"></script>
 <script src="js/jquery.min.js"></script>
 <script>
 function confirmar (){

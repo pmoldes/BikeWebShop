@@ -17,20 +17,19 @@
 
     <!-- Estilos -->
     <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
-    <link href="css/jquery.rating.css" rel="stylesheet">
   </head>
 
   <body>
     <div class="container">
-		<div class="row"><!-- start header -->
-			<div class="span4 logo">
-			<a href="index.php">
-				<h1>Web Productos Ciclismo</h1>
-			</a>
+		<div class="row header"><!-- start header -->
+			<div class="span2 logo">
+				<a href="index.php">
+					<img class="img-responsive" src="css/images/logo.png">
+				</a>
 			</div>
-			<div class="span8">
+			<div class="span10">
 				<!-- <div class="row">
 					<div class="links pull-right">
 						<div class="span2">
@@ -43,18 +42,12 @@
 						</div>
 					</div>	
 				</div> -->
-				</br>
-				</br>
-				</br>
-				</br>
-				<div class="row pull-right pull-down">
-					<div class="links">
-						<a href="index.php">Inicio</a> |
-						<a href="index.php?controller=usuario&amp;action=miCuenta">Mi Cuenta</a> |
-						<a href="index.php?controller=usuario&amp;action=about">Carrito de la compra</a> |
-						<a href="index.php?controller=usuario&amp;action=about">Acerca de</a> |
-						<a href="index.php?controller=usuario&amp;action=about">Contacto</a>
-					</div>
+				<div class="links pull-right">
+					<a href="index.php">Inicio</a> |
+					<a href="index.php?controller=usuario&amp;action=miCuenta">Mi Cuenta</a> |
+					<a href="index.php?controller=usuario&amp;action=about">Carrito de la compra</a> |
+					<a href="index.php?controller=usuario&amp;action=about">Acerca de</a> |
+					<a href="index.php?controller=usuario&amp;action=about">Contacto</a>
 				</div>
 			</div>
 		</div><!-- end header -->
@@ -128,9 +121,9 @@
 </body>
 </html>
 
-<script src="js/jquery.rating.pack.js"></script>
-<script src="js/jquery.min.js"></script>
+<script src="js/jquery-1.12.3.js"></script>
 <script src="bootstrap/js/bootstrap.js"></script>
+<script src="bootstrap/js/bootstrap3.min.js"></script>
 
 <script type="text/javascript">
 	$("#success-alert").fadeTo(2000, 500).slideUp(500, function(){
