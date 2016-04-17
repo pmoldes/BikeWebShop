@@ -9,10 +9,9 @@ footer h4 {margin-bottom: 8px;}
     height: 100%;
 }
 .header .links {
-    position: absolute;
+    position: relative;
     right: 0;
     bottom: 0;
-    font-size: 15px;
 }
 
 /* product_list - the side bar*/
@@ -56,7 +55,15 @@ footer h4 {margin-bottom: 8px;}
 .product_list > ul > li ul > li > a.active {
 	font-weight: bold;
 }
-
+.container .main-container{
+	width: auto;
+}
+@media (min-width: 768px) {
+	.custom-collapse .collapse
+	{
+	    display:block;
+	}  
+}
 .related_products .span2 {
 width:160px;
 }

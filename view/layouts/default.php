@@ -10,7 +10,7 @@
 <html lang="en"><head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
-    <title>Web Productos Ciclismo</title>
+    <title>BikeWebShop</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -24,12 +24,12 @@
   <body>
     <div class="container">
 		<div class="row header"><!-- start header -->
-			<div class="span2 logo">
+			<div class="span4">
 				<a href="index.php">
 					<img class="img-responsive" src="css/images/logo.png">
 				</a>
 			</div>
-			<div class="span10">
+			<div class="span8">
 				<!-- <div class="row">
 					<div class="links pull-right">
 						<div class="span2">
@@ -56,7 +56,7 @@
 		<div class="span12">
 		  <div class="navbar">
 			<div class="navbar-inner">
-			  <div class="container" style="width: auto;">
+			  <div class="container main-container">
 				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
 				  <span class="icon-bar"></span>
 				  <span class="icon-bar"></span>

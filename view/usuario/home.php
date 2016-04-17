@@ -11,19 +11,7 @@
 
 <div class="row">
 	<div class="span3"><!-- start sidebar -->
-  <ul class="breadcrumb">
-      <li>Categorias</span></li>
-  </ul>
-    <div class="span3 product_list">
-      <ul class="nav">
-        <?php foreach ($categorias as $cat){ ?>
-        <li>
-        <a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=<?php echo $cat->getCategoria()?>">
-        <?php echo $cat->getCategoria()?></a>
-        </li>
-        <?php }?>
-      </ul>
-    </div>
+  <?php include(__DIR__."/../productos/componentelistacategorias.php"); ?>
 	</div><!-- end sidebar -->  
 
 

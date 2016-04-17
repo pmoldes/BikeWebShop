@@ -12,17 +12,8 @@
 
 <div class="row">
 <div class="span3"><!-- start sidebar -->
-	<ul class="breadcrumb">
-	    <li>Categorias</span></li>
-	</ul>
-		<div class="span3 product_list">
-			<ul class="nav">
-				<?php foreach ($categorias as $cat){ ?>
-				<li><a href="index.php?controller=producto&action=listarProductos&filtro=<?php echo $cat->getCategoria()?>"><?php echo $cat->getCategoria()?></a></li>
-				<?php }?>
-			</ul>
-		</div><!-- end sidebar -->	
-</div>
+	<?php include(__DIR__."/../productos/componentelistacategorias.php"); ?>
+</div><!-- end sidebar -->
 <div class="span9">
 	<ul class="breadcrumb"> <!-- Start Indice -->
 	    <li><a href="index.php">Inicio</a> <span class="divider">/</span></li>				
@@ -65,9 +56,5 @@
   	</div>
   	<hr/>	  
   	<?php } ?>	
-  
-
-	  
 	</div>
-
 </div>
