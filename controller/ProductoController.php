@@ -30,6 +30,19 @@ class ProductoController extends BaseController {
     $this->view->render("productos","listarproductos");
   }
 
+  public function buscarProductos(){
+    if (isset($_POST["filtro"])){
+      $filtro = "%{$_POST["filtro"]}%";
+      $productos = $this->producto->buscarProductos($filtro);
+      $this->view->setVariable("indice", $_POST["filtro"]);
+    }
+    $categorias = $this->producto->getCategorias();
+    
+    $this->view->setVariable("productos", $productos);
+    $this->view->setVariable("categorias", $categorias);
+    $this->view->render("productos","listarproductos");
+  }
+
   public function listarProductoModalidad(){
     $modalidad=$_GET["modalidad"];
     $productos = $this->producto->getProductoModalidad($modalidad);
@@ -53,7 +66,7 @@ class ProductoController extends BaseController {
 
   public function listarProductosTienda(){
     $nif=$_GET["id"];
-    $productos = $this->producto->getProductosNif($nif);
+    $productos = $this->producto->getProductos($nif);
     $categorias = $this->producto->getCategorias();
     $this->view->setVariable("productos", $productos);
     $this->view->setVariable("categorias", $categorias);
@@ -89,8 +102,6 @@ class ProductoController extends BaseController {
   public function altaProducto() {
     $errors="";
     if (isset($_SESSION["currentuser"])){
-      
-
       if (isset($_POST["producto_nombre"])){ // reaching via HTTP Post...
           
           $producto_nif=$this->producto->obtenerNif($_SESSION["currentuser"]);
@@ -106,23 +117,22 @@ class ProductoController extends BaseController {
           $new_producto->setNif($producto_nif);
 
           $target_dir = "css/images/";
-          $target_file = $target_dir . basename($_FILES["producto_foto"]["name"]);
+          $target_file = $target_dir .microtime(true)."_".basename($_FILES["producto_foto"]["name"]);
+          echo $target_file;
           $uploadOk = 1;
           $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-          // Check if image file is a actual image or fake image
-          
           $check = getimagesize($_FILES["producto_foto"]["tmp_name"]);
-          if($check !== false) {
+          if($check != false) {
               $uploadOk = 1;
           } else {
               $uploadOk = 0;
           }
-          // Check file size
+          // Comprueba el tamaño de la imagen
           if ($_FILES["producto_foto"]["size"] > 500000) {
               $errors = $errors. "Lo sentimos tu imagen es muy grande, tamaño maximo permitido 1MB.</br>";
               $uploadOk = 0;
           }
-          // Allow certain file formats
+          // Comprueba que la extension de la imagen sea la correcta
           if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
           && $imageFileType != "gif" ) {
               $errors = $errors. "Unicamente archivos JPG, JPEG, PNG & GIF estan permitidos.</br>";
@@ -133,7 +143,6 @@ class ProductoController extends BaseController {
               $errors = $errors. "Tu archivo no se ha subido.";
           } else {
               if (move_uploaded_file($_FILES["producto_foto"]["tmp_name"], $target_file)) {
-                  //echo "The file ". basename( $_FILES["producto_foto"]["name"]). " has been uploaded.";
                   $new_producto->setFoto($target_file);
                   $this->producto->save($new_producto,$producto_nif);
                   $this->view->redirect("producto","listarMisProductos");
@@ -141,10 +150,8 @@ class ProductoController extends BaseController {
                    $errors = $errors. "Lo sentimos, se ha producido un error, intentalo de nuevo";
               }
           }
-
           $this->view->setVariable("errors",$errors);
           $this->view->render("productos","altaproducto");
-          
         }
       else
         $this->view->render("productos","altaproducto");
@@ -169,7 +176,7 @@ class ProductoController extends BaseController {
           $new_producto->setNuevo($_POST["producto_nuevo"]);
 
           $this->producto->modificarProducto($new_producto,$_POST["producto_id"]);
-         
+          $this->view->setFlash("Datos modificados correctamente.");
           $this->view->redirect("producto","listarMisProductos");
         }
       else
@@ -186,6 +193,7 @@ class ProductoController extends BaseController {
     if (isset($_SESSION["currentuser"])){
       $nif=$this->producto->obtenerNif($_SESSION["currentuser"]);
       $this->producto->bajaProducto($_GET["id"],$nif);
+      $this->view->setFlash("Producto eliminado");
       $this->view->redirect("producto","listarMisProductos");
 
     }
@@ -210,7 +218,7 @@ class ProductoController extends BaseController {
       $new_comentario->setAutor($autor);
 
       $new_comentario->save($new_comentario);
-
+      $this->view->setFlash("Comentario guardado");
       $this->view->redirect("producto","detallesproducto","id=".$_GET["id"]);
     }
     else{
@@ -222,6 +230,7 @@ class ProductoController extends BaseController {
     if (isset($_SESSION["currentuser"])){
       $nif=$this->comentario->obtenerNif($_SESSION["currentuser"]);
       $this->comentario->bajaComentario($_GET["idComentario"],$nif);
+      $this->view->setFlash("Comentario eliminado");
       $this->view->redirect("producto","detallesproducto","id=".$_GET["idProducto"]);
 
     }
@@ -242,7 +251,7 @@ class ProductoController extends BaseController {
         $new_comentario->setTexto($_POST["mod_texto"]);
 
         $new_comentario->modificarcomentario($new_comentario,$_POST["comentario_id"]);
-         
+        $this->view->setFlash("Comentario modificado");
         $this->view->redirect("producto","detallesproducto","id=".$_GET["id"]);
         }
       else

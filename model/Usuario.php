@@ -19,14 +19,15 @@ class Usuario {
   private $us_direccion;
   private $us_codigopostal;
   private $us_telefono;
-  private $us_rol; 
+  private $us_rol;
+  private $us_eliminado;
   
 
   //constructor
    
   public function __construct($us_nif=NULL, $us_email=NULL, $us_username=NULL, $us_password=NULL, $us_nombre=NULL,
                                $us_apellidos=NULL, $us_direccion=NULL, $us_codigopostal=NULL, $us_telefono=NULL, 
-                               $us_rol=NULL) {
+                               $us_rol=NULL, $us_eliminado = NULL) {
 	   $this->db = PDOConnection::getInstance();
      $this->us_nif = $us_nif; 
      $this->us_email = $us_email;
@@ -38,6 +39,7 @@ class Usuario {
      $this->us_codigopostal = $us_codigopostal; 
      $this->us_telefono = $us_telefono; 
      $this->us_rol = $us_rol;
+     $this->us_eliminado = $us_eliminado;
    }
    
   //Getters y setters
@@ -121,12 +123,20 @@ class Usuario {
   public function setRol($us_rol) {
     $this->us_rol = $us_rol;
   }
+
+  public function getEliminado() {
+    return $this->us_eliminado;
+  }
+
+  public function setEliminado($us_eliminado) {
+    $this->us_eliminado = $us_eliminado;
+  }
   
 
   //Funciones de base de datos 
   
   public function save($usuario) {
-    $stmt = $this->db->prepare("INSERT INTO usuarios values (?,?,?,?,?,?,?,?,?,'1')");
+    $stmt = $this->db->prepare("INSERT INTO usuarios values (?,?,?,?,?,?,?,?,?,'1','0')");
     $stmt->execute(array($usuario->getNif(), $usuario->getEmail(),$usuario->getUsername(), $usuario->getPassword(),
                     $usuario->getNombre(),$usuario->getApellidos(),$usuario->getDireccion(),$usuario->getCP(),
                     $usuario->getTelefono()));  
@@ -160,7 +170,9 @@ class Usuario {
   }
   
   public function isValidUser($us_email, $us_password) {
-    $stmt = $this->db->prepare("SELECT count(us_email) FROM usuarios where us_email=? and us_password=?");
+    $stmt = $this->db->prepare("SELECT count(us_email) 
+                                FROM usuarios 
+                                where us_email=? and us_password=? AND us_eliminado!= '1'");
     $stmt->execute(array($us_email, $us_password));
     
     if ($stmt->fetchColumn() > 0) {
@@ -168,8 +180,18 @@ class Usuario {
     }
   }
 
+  public function getPass($us_email) {
+    $stmt = $this->db->prepare("SELECT us_password
+                                FROM usuarios 
+                                where us_email=? AND us_eliminado!= '1'");
+    $stmt->execute(array($us_email));
+    $password = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $password["us_password"];
+  }
+
   public function bajaUsuario($us_email){
-    $stmt = $this->db->prepare("DELETE FROM usuarios WHERE us_email=?");
+    $stmt = $this->db->prepare("UPDATE usuarios SET us_eliminado='1' WHERE us_email=?");
     $stmt->execute(array($us_email));
 
     return true;
@@ -177,7 +199,7 @@ class Usuario {
   }
 
   public function consultarUsuario($us_email){
-    $stmt = $this->db->prepare("SELECT * FROM usuarios WHERE us_email= ?");
+    $stmt = $this->db->prepare("SELECT * FROM usuarios WHERE us_email= ? AND us_eliminado != '1'");
     $stmt -> execute(array($us_email));
     $us_datos_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $us_datos=array();
