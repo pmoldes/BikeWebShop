@@ -45,7 +45,7 @@
 				<div class="links pull-right">
 					<a href="index.php">Inicio</a> |
 					<a href="index.php?controller=usuario&amp;action=miCuenta">Mi Cuenta</a> |
-					<a href="index.php?controller=usuario&amp;action=about">Carrito de la compra</a> |
+					<a href="index.php?controller=producto&amp;action=verCarrito">Carrito</a> |
 					<a href="index.php?controller=usuario&amp;action=about">Acerca de</a> |
 					<a href="index.php?controller=usuario&amp;action=about">Contacto</a>
 				</div>
@@ -73,7 +73,6 @@
 					<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Ropa">Ropa y accesorios</a></li>
 					<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Mecanica">Mecánica</a></li>
 				  </ul>
-
 				  <ul class="nav pull-right">
 				   <li class="divider-vertical"></li>
 					<form id="searchForm" class="navbar-search"  method="POST" action="index.php?controller=producto&amp;action=buscarProductos">
@@ -82,7 +81,6 @@
 						<button class="btn btn-primary btn-small search_btn" type="submit">GO!</button>
 						</fieldset>
 					</form>
-					
 				  </ul>
 				</div><!-- /.nav-collapse -->
 			  </div>
@@ -98,22 +96,19 @@
 	    </div>
     <?php } ?>
 	<?= $view->getFragment(ViewManager::DEFAULT_FRAGMENT) ?>   <!-- fragment -->	
-
 	<footer>
-	<hr/>
-	<div class="row well no_margin_left">
-
-	<div class="span3">
-		<h4>Informacion</h4>
-		<ul>
-			<li><a href="index.php?controller=usuario&amp;action=about">Sobre nosotros</a></li>
-			<li><a href="index.php?controller=usuario&amp;action=about">Informacion de envio</a></li>
-			<li><a href="index.php?controller=usuario&amp;action=about">Devoluciones</a></li>
-			<li><a href="index.php?controller=usuario&amp;action=about">Terminos y condiciones</li>
-		</ul>
-	</div>
-
-	</div>
+		<hr/>
+		<div class="row well no_margin_left">
+			<div class="">
+				<h4>Informacion</h4>
+				<ul>
+					<li><a href="index.php?controller=usuario&amp;action=about">Sobre nosotros</a></li>
+					<li><a href="index.php?controller=usuario&amp;action=about">Informacion de envio</a></li>
+					<li><a href="index.php?controller=usuario&amp;action=about">Devoluciones</a></li>
+					<li><a href="index.php?controller=usuario&amp;action=about">Terminos y condiciones</li>
+				</ul>
+			</div>
+		</div>
 	</footer>
 
 </div> <!-- /container -->

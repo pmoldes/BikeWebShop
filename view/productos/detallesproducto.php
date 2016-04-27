@@ -17,7 +17,7 @@
 		<div class="span3 product_list">
 			<ul class="nav">
 				<?php foreach ($categorias as $cat){ ?>
-				<li><a href="index.php?controller=producto&action=listarProductos&filtro=<?php echo $cat->getCategoria()?>"><?php echo $cat->getCategoria()?></a></li>
+				<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=<?php echo $cat->getCategoria()?>"><?php echo $cat->getCategoria()?></a></li>
 				<?php }?>
 			</ul>
 		</div>
@@ -30,7 +30,7 @@
 			<ul class="breadcrumb"> <!-- Start Indice -->
 		    	<li><a href="index.php">Inicio</a> <span class="divider">/</span></li>				
 		    	<li>
-		    		<a href="index.php?controller=producto&action=listarProductos">Productos</a> <span class="divider">/</span>
+		    		<a href="index.php?controller=producto&amp;action=listarProductos">Productos</a> <span class="divider">/</span>
 	    		</li>
 				<li class="active">
 		    		<a href="#"><?php echo $producto[0]->getNombre() ?></a> 
@@ -58,7 +58,8 @@
 									echo "Usado";?>
 					</span><br/>
 					<h2><strong>Precio: <?php echo $producto[0]->getPrecio() ?>€</strong></h2>
-					<button class="btn btn-primary" type="submit">Añadir al carrito</button>
+					<a class="btn btn-primary" 
+					href="index.php?controller=producto&amp;action=anhadirAlCarrito&amp;id=<?php echo $producto[0]->getId()?>">Añadir al carrito</a>
 			</div>
 				
 		</div>	

@@ -18,7 +18,7 @@
 	<ul class="breadcrumb"> <!-- Start Indice -->
 	    <li><a href="index.php">Inicio</a> <span class="divider">/</span></li>				
 	    <li>
-	    	<a href="index.php?controller=producto&action=listarProductos">Productos</a> <span class="divider">/</span>
+	    	<a href="index.php?controller=producto&amp;action=listarProductos">Productos</a> <span class="divider">/</span>
     	</li>
 		<li class="active">
 	    	<a href="#"><?php echo $indice ?></a> 
@@ -38,11 +38,11 @@
 	<?php foreach ($productos as $prods){?>
 	 <div class="row">
 	 <div class="span1">
-	  <a href="index.php?controller=producto&action=detallesProducto&id=<?php echo $prods->getId()?>"><img alt="imagen producto" id="tmp" src="<?php echo $prods->getFoto() ?>"></a>
+	  <a href="index.php?controller=producto&amp;action=detallesProducto&amp;id=<?php echo $prods->getId()?>"><img alt="imagen producto" id="tmp" src="<?php echo $prods->getFoto() ?>"></a>
 	  </div>	 
 	  
 	  <div class="span6">
-	   <a href="index.php?controller=producto&action=detallesProducto&id=<?php echo $prods->getId()?>"><h5><?php echo $prods->getNombre() ?></h5></a>
+	   <a href="index.php?controller=producto&amp;action=detallesProducto&amp;id=<?php echo $prods->getId()?>"><h5><?php echo $prods->getNombre() ?></h5></a>
               <p><?php echo $prods->getDescripcion() ?></p>
 	  </div>	
 
@@ -51,7 +51,8 @@
 	  </div>	 
 	  
 	  <div class="span2">
-	   <p><a class="btn btn-primary" href="cart.html">Añadir al carrito</a></p>
+	   <p><a class="btn btn-primary" 
+	   		href="index.php?controller=producto&amp;action=detallesProducto&amp;id=<?php echo $prods->getId()?>">Ver detalles</a></p>
 	  </div>
   	</div>
   	<hr/>	  

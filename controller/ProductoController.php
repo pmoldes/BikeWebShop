@@ -261,7 +261,40 @@ class ProductoController extends BaseController {
       $this->view->redirect("usuario","acceso");
   }
 
+  public function anhadirAlCarrito(){
+      $idProducto = $_GET["id"];
+      if (isset($_SESSION['carrito'][$idProducto])) {
+          $this->view->setFlash("Este producto ya esta en el carrito");
+      }
+      else{
+        $producto = $this->producto->getDetallesProducto($idProducto);
+        $_SESSION['carrito'][$idProducto] = array(
+                                                  "id" => $producto[0]->getId(),
+                                                  "nombre" => $producto[0]->getNombre(),
+                                                  "foto" => $producto[0]->getFoto(),
+                                                  "precio" => $producto[0]->getPrecio()
+                                                  );
+        $this->view->setFlash("Producto añadido al carrito");
+      }
+      $this->view->redirect("producto","detallesproducto","id=".$_GET["id"]);
+  }
 
+  public function eliminarDeCarrito(){
+      $idProducto = $_GET["id"];
+      if (isset($_SESSION['carrito'][$idProducto])) {
+        unset($_SESSION['carrito'][$idProducto]);
+        $this->view->setFlash("Producto eliminado del carrito!");
+      }
+      else{
+        $this->view->setFlash("El producto no esta en el carrito");
+      }
+      $this->view->redirect("producto","verCarrito");
+  }
+
+  public function verCarrito(){
+    $this->view->setVariable("productos", $_SESSION['carrito']);
+    $this->view->render("productos","consultarcarrito");
+  }
 }
 
 ?>
