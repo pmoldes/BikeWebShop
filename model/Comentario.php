@@ -16,16 +16,16 @@ class Comentario {
   private $comentario_autor;
   private $comentario_texto;
   private $comentario_valoracion;
-  private $producto_id;
-  private $us_nif;
+  private $fk_producto_id;
+  private $fk_us_id;
   private $comentario_eliminado;
   
 
   //constructor
    
   public function __construct($comentario_id=NULL, $comentario_titulo=NULL, $comentario_texto=NULL,
-                              $comentario_autor=NULL,$comentario_valoracion=NULL,$producto_id=NULL, 
-                              $us_nif=NULL,$comentario_eliminado=NULL) {
+                              $comentario_autor=NULL,$comentario_valoracion=NULL,$fk_producto_id=NULL, 
+                              $fk_us_id=NULL,$comentario_eliminado=NULL) {
 	   $this->db = PDOConnection::getInstance();
     
      $this->comentario_id = $comentario_id;
@@ -33,8 +33,8 @@ class Comentario {
      $this->comentario_texto = $comentario_texto;
      $this->comentario_autor = $comentario_autor;
      $this->comentario_valoracion = $comentario_valoracion;
-     $this->producto_id = $producto_id; 
-     $this->us_nif = $us_nif; 
+     $this->fk_producto_id = $fk_producto_id; 
+     $this->fk_us_id = $fk_us_id; 
      $this->comentario_eliminado = $comentario_eliminado; 
    }
    
@@ -81,19 +81,19 @@ class Comentario {
   }
 
   public function getProductoId() {
-    return $this->producto_id;
+    return $this->fk_producto_id;
   }
 
-  public function setProductoId($producto_id) {
-    $this->producto_id = $producto_id;
+  public function setProductoId($fk_producto_id) {
+    $this->fk_producto_id = $fk_producto_id;
   }
 
-  public function getNif() {
-    return $this->us_nif;
+  public function getUsId() {
+    return $this->fk_us_id;
   }
 
-  public function setNif($us_nif) {
-    $this->us_nif = $us_nif;
+  public function setUsId($fk_us_id) {
+    $this->fk_us_id = $fk_us_id;
   }
 
   public function getEliminado() {
@@ -109,18 +109,18 @@ class Comentario {
   public function save($comentario) {
     $stmt = $this->db->prepare("INSERT INTO comentarios values ('',?,?,?,?,?,?,'0')");
     $stmt->execute(array($comentario->getTitulo(), $comentario->getTexto(),$comentario->getAutor(),
-      $comentario->getValoracion(),$comentario->getProductoId(),$comentario->getNif()));  
+      $comentario->getValoracion(),$comentario->getProductoId(),$comentario->getUsId()));  
   }
 
-  public function getComentarios($producto_id){
-    $stmt = $this->db->prepare("SELECT * FROM comentarios WHERE producto_id=? AND comentario_eliminado != '1'");  
-    $stmt -> execute(array($producto_id));
+  public function getComentarios($fk_producto_id){
+    $stmt = $this->db->prepare("SELECT * FROM comentarios WHERE fk_producto_id=? AND comentario_eliminado != '1'");  
+    $stmt -> execute(array($fk_producto_id));
     $comentario_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $array_comentario=array();
     foreach($comentario_db as $comentario){
       array_push($array_comentario, new Comentario($comentario["comentario_id"], 
         $comentario["comentario_titulo"], $comentario["comentario_texto"],$comentario["comentario_autor"],
-        $comentario["comentario_valoracion"], $comentario["producto_id"],$comentario["us_nif"]));
+        $comentario["comentario_valoracion"], $comentario["fk_producto_id"],$comentario["fk_us_id"]));
     }
     if(!empty($array_comentario))
       return $array_comentario;
@@ -128,13 +128,13 @@ class Comentario {
       return NULL;
   }
 
-  public function obtenerNif($us_email){
-    $stmt = $this->db->prepare("SELECT us_nif FROM usuarios WHERE us_email = ?");
+  public function obtenerUsId($us_email){
+    $stmt = $this->db->prepare("SELECT us_id FROM usuarios WHERE us_email = ?");
     $stmt->execute(array($us_email));
 
-    $nif = $stmt->fetch(PDO::FETCH_ASSOC);
+    $us_id = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    return $nif["us_nif"];
+    return $us_id["us_id"];
   } 
 
   public function obtenerAutor($us_email){
@@ -149,17 +149,27 @@ class Comentario {
   public function comprobarAutor($comentario_id,$us_email){
     $stmt = $this->db->prepare("SELECT count(*) 
                                 FROM comentarios as C, usuarios as U
-                                WHERE U.us_nif=C.us_nif and C.comentario_id=? and us_email=?");
+                                WHERE U.us_id=C.fk_us_id and C.comentario_id=? 
+                                and us_email=?");
     $stmt->execute(array($comentario_id,$us_email));
 
     if ($stmt->fetchColumn() > 0)
       return true;
   }
 
-  public function bajaComentario($comentario_id, $us_nif){
+  public function esAdmin($us_email){
+    $stmt = $this->db->prepare("SELECT count(us_email) FROM usuarios where us_email=? and us_rol='3'");
+    $stmt->execute(array($us_email));
+    
+    if ($stmt->fetchColumn() > 0) {
+      return true;        
+    }
+  }
+
+  public function bajaComentario($comentario_id, $fk_us_id){
     $stmt = $this->db->prepare("UPDATE comentarios set comentario_eliminado = '1' 
-                                WHERE comentario_id = ? AND us_nif = ?");
-    $stmt->execute(array($comentario_id, $us_nif));
+                                WHERE comentario_id = ? AND fk_us_id = ?");
+    $stmt->execute(array($comentario_id, $fk_us_id));
 
     return true;
 

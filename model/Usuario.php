@@ -10,7 +10,7 @@ class Usuario {
 
   //Variables de la clase
 
-  private $us_nif;
+  private $us_id;
   private $us_email;
   private $us_username;
   private $us_password;
@@ -25,11 +25,11 @@ class Usuario {
 
   //constructor
    
-  public function __construct($us_nif=NULL, $us_email=NULL, $us_username=NULL, $us_password=NULL, $us_nombre=NULL,
+  public function __construct($us_id=NULL, $us_email=NULL, $us_username=NULL, $us_password=NULL, $us_nombre=NULL,
                                $us_apellidos=NULL, $us_direccion=NULL, $us_codigopostal=NULL, $us_telefono=NULL, 
                                $us_rol=NULL, $us_eliminado = NULL) {
 	   $this->db = PDOConnection::getInstance();
-     $this->us_nif = $us_nif; 
+     $this->us_id = $us_id; 
      $this->us_email = $us_email;
 	   $this->us_username = $us_username;
 	   $this->us_password = $us_password;
@@ -44,12 +44,12 @@ class Usuario {
    
   //Getters y setters
   
-  public function getNif() {
-    return $this->us_nif;
+  public function getId() {
+    return $this->us_id;
   }
 
-  public function setNif($us_nif) {
-    $this->us_nif = $us_nif;
+  public function setId($us_id) {
+    $this->us_id = $us_id;
   }
 
   public function getEmail() {
@@ -136,19 +136,28 @@ class Usuario {
   //Funciones de base de datos 
   
   public function save($usuario) {
-    $stmt = $this->db->prepare("INSERT INTO usuarios values (?,?,?,?,?,?,?,?,?,'1','0')");
-    $stmt->execute(array($usuario->getNif(), $usuario->getEmail(),$usuario->getUsername(), $usuario->getPassword(),
+    $stmt = $this->db->prepare("INSERT INTO usuarios values ('',?,?,?,?,?,?,?,?,'1','0')");
+    $stmt->execute(array($usuario->getEmail(),$usuario->getUsername(), $usuario->getPassword(),
                     $usuario->getNombre(),$usuario->getApellidos(),$usuario->getDireccion(),$usuario->getCP(),
                     $usuario->getTelefono()));  
   }
 
-  public function nifExists($us_nif) {
-    $stmt = $this->db->prepare("SELECT count(us_nif) FROM usuarios where us_nif=?");
-    $stmt->execute(array($us_nif));
+  public function IdExists($us_id) {
+    $stmt = $this->db->prepare("SELECT count(us_id) FROM usuarios where us_id=?");
+    $stmt->execute(array($us_id));
     
     if ($stmt->fetchColumn() > 0) {   
       return true;
     } 
+  }
+
+  public function obtenerIDbyEmail($email){
+    $stmt = $this->db->prepare("SELECT us_id FROM usuarios WHERE us_email = ?");
+    $stmt->execute(array($email));
+
+    $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $usuario["us_id"];
   }
 
   public function emailExists($us_email) {
@@ -159,10 +168,19 @@ class Usuario {
       return true;
     } 
   }
+
+  public function usernameExists($us_username) {
+    $stmt = $this->db->prepare("SELECT count(us_username) FROM usuarios where us_username=?");
+    $stmt->execute(array($us_username));
+    
+    if ($stmt->fetchColumn() > 0) {   
+      return true;
+    } 
+  }
   
-  public function emailModificar($us_nif, $us_email) { //devuelve true si existe el mail para usuario con distinto nif
-    $stmt = $this->db->prepare("SELECT count(us_email) FROM usuarios where us_nif != ? and us_email=?");
-    $stmt->execute(array($us_nif, $us_email));
+  public function emailModificar($us_id, $us_email) { //devuelve true si existe el mail para usuario con distinto Id
+    $stmt = $this->db->prepare("SELECT count(us_email) FROM usuarios where us_id != ? and us_email=?");
+    $stmt->execute(array($us_id, $us_email));
     
     if ($stmt->fetchColumn() > 0) {   
       return true;
@@ -204,7 +222,7 @@ class Usuario {
     $us_datos_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $us_datos=array();
     foreach($us_datos_db as $us_dato){
-      array_push($us_datos, new Usuario($us_dato["us_nif"], $us_dato["us_email"],$us_dato["us_username"], 
+      array_push($us_datos, new Usuario($us_dato["us_id"], $us_dato["us_email"],$us_dato["us_username"], 
                                         $us_dato["us_password"], $us_dato["us_nombre"], $us_dato["us_apellidos"], 
                                         $us_dato["us_direccion"], $us_dato["us_codigo_postal"],$us_dato["us_telefono"],
                                         $us_dato["us_rol"]));

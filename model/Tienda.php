@@ -16,14 +16,14 @@ class Tienda {
   private $tienda_telefono;
   private $tienda_email;
   private $tienda_eliminado;
-  private $us_nif;
+  private $fk_us_id;
 
   
 
   //constructor
    
   public function __construct($tienda_id=NULL, $tienda_nombre=NULL, $tienda_direccion=NULL, 
-                              $tienda_email=NULL,$tienda_telefono=NULL,  $us_nif=NULL, $tienda_eliminado=NULL) {
+                              $tienda_email=NULL,$tienda_telefono=NULL,  $fk_us_id=NULL, $tienda_eliminado=NULL) {
 	   $this->db = PDOConnection::getInstance();
      $this->tienda_id = $tienda_id; 
      $this->tienda_nombre = $tienda_nombre;
@@ -31,7 +31,7 @@ class Tienda {
      $this->tienda_email = $tienda_email;
      $this->tienda_telefono = $tienda_telefono;
      $this->tienda_eliminado = $tienda_eliminado;
-     $this->us_nif = $us_nif;
+     $this->fk_us_id = $fk_us_id;
      $this->tienda_eliminado = $tienda_eliminado; 
    }
    
@@ -77,12 +77,12 @@ class Tienda {
     $this->tienda_email = $tienda_email;
   }
 
-  public function getusNif() {
-    return $this->us_nif;
+  public function getusID() {
+    return $this->fk_us_id;
   }
 
-  public function setusNif($us_nif) {
-    $this->us_nif = $us_nif;
+  public function setusID($fk_us_id) {
+    $this->fk_us_id = $fk_us_id;
   }
 
   public function getEliminado() {
@@ -101,52 +101,52 @@ class Tienda {
   public function save($tienda) {
     $stmt = $this->db->prepare("INSERT INTO tiendas values ('',?,?,?,?,?,'0')");
     $stmt->execute(array($tienda->getNombre(), $tienda->getDireccion(),$tienda->getEmail(),
-                        $tienda->getTelefono(), $tienda->getusNif()));  
+                        $tienda->getTelefono(), $tienda->getusID()));  
   }
 
-  public function obtenerNif($us_email){
-    $stmt = $this->db->prepare("SELECT us_nif FROM usuarios WHERE us_email = ?");
+  public function obtenerID($us_email){
+    $stmt = $this->db->prepare("SELECT us_id FROM usuarios WHERE us_email = ?");
     $stmt->execute(array($us_email));
 
-    $nif = $stmt->fetch(PDO::FETCH_ASSOC);
+    $us_id = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    return $nif["us_nif"];
+    return $us_id["us_id"];
   } 
 
-  public function existeTienda($us_nif){
-    $stmt = $this->db->prepare("SELECT count(us_nif) FROM tiendas WHERE us_nif = ? AND tienda_eliminado != '1'");
-    $stmt->execute(array($us_nif));
+  public function existeTienda($fk_us_id){
+    $stmt = $this->db->prepare("SELECT count(fk_us_id) FROM tiendas WHERE fk_us_id = ? AND tienda_eliminado != '1'");
+    $stmt->execute(array($fk_us_id));
 
     if ($stmt->fetchColumn() > 0) {
       return true;        
     }
   }
   
-  public function consultarTienda($us_nif){
-    $stmt = $this->db->prepare("SELECT * FROM tiendas WHERE us_nif= ? AND tienda_eliminado != '1'");
-    $stmt -> execute(array($us_nif));
+  public function consultarTienda($fk_us_id){
+    $stmt = $this->db->prepare("SELECT * FROM tiendas WHERE fk_us_id= ? AND tienda_eliminado != '1'");
+    $stmt -> execute(array($fk_us_id));
     $ti_datos_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $ti_datos=array();
     foreach($ti_datos_db as $ti_dato){
       array_push($ti_datos, new Tienda($ti_dato["tienda_id"], $ti_dato["tienda_nombre"], $ti_dato["tienda_direccion"],
-                                        $ti_dato["tienda_email"],$ti_dato["tienda_telefono"], $ti_dato["us_nif"]));
+                                        $ti_dato["tienda_email"],$ti_dato["tienda_telefono"], $ti_dato["fk_us_id"]));
     }
     if(!empty($ti_datos)){ return $ti_datos;}
     else{ return NULL;}
   }
 
-  public function modificarTienda($tienda,$us_nif){
+  public function modificarTienda($tienda,$fk_us_id){
 
       $stmt = $this->db->prepare("UPDATE tiendas SET tienda_nombre=?,tienda_direccion=?,
-                                 tienda_email=?, tienda_telefono=?  WHERE us_nif =?");
+                                 tienda_email=?, tienda_telefono=?  WHERE fk_us_id =?");
 
       $stmt->execute(array($tienda->getNombre(),$tienda->getDireccion(), 
-                      $tienda->getEmail(),$tienda->getTelefono(), $us_nif));
+                      $tienda->getEmail(),$tienda->getTelefono(), $fk_us_id));
   }
 
-  public function bajaTienda($us_nif){
-    $stmt = $this->db->prepare("UPDATE tiendas SET tienda_eliminado = '1' WHERE us_nif=? AND tienda_eliminado != '1'");
-    $stmt->execute(array($us_nif));
+  public function bajaTienda($fk_us_id){
+    $stmt = $this->db->prepare("UPDATE tiendas SET tienda_eliminado = '1' WHERE fk_us_id=? AND tienda_eliminado != '1'");
+    $stmt->execute(array($fk_us_id));
 
     return true;
 
@@ -159,7 +159,7 @@ class Tienda {
     $tiendas=array();
     foreach($tiendas_db as $tienda){
       array_push($tiendas, new Tienda($tienda["tienda_id"], $tienda["tienda_nombre"], $tienda["tienda_direccion"],
-                                        $tienda["tienda_email"], $tienda["tienda_telefono"], $tienda["us_nif"]));
+                                        $tienda["tienda_email"], $tienda["tienda_telefono"], $tienda["fk_us_id"]));
     }
     if(!empty($tiendas))
       return $tiendas;

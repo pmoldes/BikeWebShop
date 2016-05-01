@@ -81,14 +81,14 @@
 			<div class="span9">
 			    <div class="tabbable">
 				    <ul class="nav nav-tabs">
-					    <li class="active"><a href="#1" data-toggle="tab">Descripcion</a></li>
-					    <li><a href="#2" data-toggle="tab">Comentarios</a></li>
+					    <li class="active"><a href="#tab1" data-toggle="tab">Descripcion</a></li>
+					    <li><a href="#tab2" data-toggle="tab">Comentarios</a></li>
 				    </ul>
 				    <div class="tab-content">
-					    <div class="tab-pane active" id="1">
+					    <div class="tab-pane active" id="tab1">
 					    	<p><?php echo $producto[0]->getDescripcion()?></p>
 					    </div>
-					    <div class="tab-pane" id="2">
+					    <div class="tab-pane" id="tab2">
 					    <?php if($comentarios == NULL){ ?>
 					    		<p>No hay comentarios sobre este producto</p>
 					    <?php }else{ ?>
@@ -97,11 +97,12 @@
 						    		<h4><?php echo $comentario->getTitulo()?></h4><h6>por <?php echo $comentario->getAutor()?></h6>
 						    		<p>Valoracion: <?php echo $comentario->getValoracion()?>/5</p>
 						    		<p><?php echo $comentario->getTexto()?></p>
-				    				<?php if($comentario->comprobarAutor($comentario->getComentarioId(),$_SESSION["currentuser"])){ //Si el usuario actual es el autor del comentario puede editar/eliminar?>
+				    				<?php if($comentario->comprobarAutor($comentario->getComentarioId(),$_SESSION["currentuser"]) ||
+				    					$comentario->esAdmin($_SESSION["currentuser"])){ //Si el usuario actual es el autor del comentario puede editar/eliminar?>
 				    					
 				    					<a data-toggle="modal" data-target="#modificarcomentario<?php echo $comentario->getComentarioId()?>" ><i class="icon-pencil" ></i></a>
 						    			
-						    			<a onclick="javascript:return confirmar();" href="index.php?controller=producto&action=bajaComentario&amp;idComentario=<?php echo $comentario->getComentarioId()?>&amp;idProducto=<?php echo $comentario->getProductoId()?>">
+						    			<a onclick="javascript:return confirmar();" href="index.php?controller=producto&amp;action=bajaComentario&amp;idComentario=<?php echo $comentario->getComentarioId()?>&amp;idProducto=<?php echo $comentario->getProductoId()?>">
 							    			<i class="icon-remove-sign" ></i>
 						    			</a>
 
@@ -220,13 +221,12 @@
 						              	</div>
 						              	<div class="control-group">
 							  				<label class="control-label">Texto</label>
-								  				<div class="controls docs-input-sizes">
-								  					<textarea placeholder="Escribe tu opinión sobre el producto, máximo 500 caracteres"class="span4"rows="4" cols="50" name="texto"></textarea>
-								                </div>
+							  				<div class="controls docs-input-sizes">
+							  					<textarea placeholder="Escribe tu opinión sobre el producto, máximo 500 caracteres"class="span4"rows="4" cols="50" name="texto"></textarea>
+							                </div>
 									  	</div>
-						       		
-						      </div> <!--End modal body -->
-						      <div class="modal-footer">
+						      	</div> <!--End modal body -->
+						      	<div class="modal-footer">
 						        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 						        <button type="submit" class="btn btn-primary">Enviar</button>
 						        </fieldset>
@@ -245,6 +245,7 @@
 </div>	 
 	 
 <script src="js/jquery.min.js"></script>
+<script src="js/jquery.validate.js"></script>
 <script>
 function confirmar (){
 		      rc = confirm("¿Seguro que desea eliminar este comentario?");

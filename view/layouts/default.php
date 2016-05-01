@@ -118,7 +118,6 @@
 
 <script src="js/jquery-1.12.3.js"></script>
 <script src="bootstrap/js/bootstrap.js"></script>
-<script src="bootstrap/js/bootstrap3.min.js"></script>
 
 <script type="text/javascript">
 	$("#success-alert").fadeTo(2000, 500).slideUp(500, function(){

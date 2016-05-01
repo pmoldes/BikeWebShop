@@ -65,8 +65,8 @@ class ProductoController extends BaseController {
 
 
   public function listarProductosTienda(){
-    $nif=$_GET["id"];
-    $productos = $this->producto->getProductos($nif);
+    $us_id=$_GET["id"];
+    $productos = $this->producto->getProductos($us_id);
     $categorias = $this->producto->getCategorias();
     $this->view->setVariable("productos", $productos);
     $this->view->setVariable("categorias", $categorias);
@@ -87,8 +87,8 @@ class ProductoController extends BaseController {
 
   public function listarMisProductos(){
     if (isset($_SESSION["currentuser"])){
-      $nif=$this->producto->obtenerNif($_SESSION["currentuser"]);
-      $productos = $this->producto->getProductos($nif);
+      $us_id=$this->producto->obtenerUsID($_SESSION["currentuser"]);
+      $productos = $this->producto->getProductos($us_id);
       $this->view->setVariable("productos", $productos);
       $this->view->render("productos","misproductos");
     }
@@ -104,7 +104,7 @@ class ProductoController extends BaseController {
     if (isset($_SESSION["currentuser"])){
       if (isset($_POST["producto_nombre"])){ // reaching via HTTP Post...
           
-          $producto_nif=$this->producto->obtenerNif($_SESSION["currentuser"]);
+          $producto_us_id=$this->producto->obtenerUsID($_SESSION["currentuser"]);
           $new_producto = new Producto();
 
           $new_producto->setNombre($_POST["producto_nombre"]);
@@ -114,7 +114,7 @@ class ProductoController extends BaseController {
           $new_producto->setPrecio($_POST["producto_precio"]);
           $new_producto->setCantidad($_POST["producto_cantidad"]);
           $new_producto->setNuevo($_POST["producto_nuevo"]);
-          $new_producto->setNif($producto_nif);
+          $new_producto->setUsId($producto_us_id);
 
           $target_dir = "css/images/";
           $target_file = $target_dir .microtime(true)."_".basename($_FILES["producto_foto"]["name"]);
@@ -144,7 +144,7 @@ class ProductoController extends BaseController {
           } else {
               if (move_uploaded_file($_FILES["producto_foto"]["tmp_name"], $target_file)) {
                   $new_producto->setFoto($target_file);
-                  $this->producto->save($new_producto,$producto_nif);
+                  $this->producto->save($new_producto);
                   $this->view->redirect("producto","listarMisProductos");
               } else {
                    $errors = $errors. "Lo sentimos, se ha producido un error, intentalo de nuevo";
@@ -191,8 +191,8 @@ class ProductoController extends BaseController {
 
   public function bajaProducto(){
     if (isset($_SESSION["currentuser"])){
-      $nif=$this->producto->obtenerNif($_SESSION["currentuser"]);
-      $this->producto->bajaProducto($_GET["id"],$nif);
+      $us_id=$this->producto->obtenerUsID($_SESSION["currentuser"]);
+      $this->producto->bajaProducto($_GET["id"],$us_id);
       $this->view->setFlash("Producto eliminado");
       $this->view->redirect("producto","listarMisProductos");
 
@@ -205,7 +205,7 @@ class ProductoController extends BaseController {
   public function altaComentario(){
     if (isset($_SESSION["currentuser"])){
       
-      $nif=$this->comentario->obtenerNif($_SESSION["currentuser"]);
+      $us_id=$this->comentario->obtenerUsId($_SESSION["currentuser"]);
       $autor=$this->comentario->obtenerAutor($_SESSION["currentuser"]);
 
       $new_comentario = new Comentario();
@@ -214,7 +214,7 @@ class ProductoController extends BaseController {
       $new_comentario->setValoracion($_POST["valoracion"]);
       $new_comentario->setTexto($_POST["texto"]);
       $new_comentario->setProductoID($_GET["id"]);
-      $new_comentario->setNif($nif);
+      $new_comentario->setUsId($us_id);
       $new_comentario->setAutor($autor);
 
       $new_comentario->save($new_comentario);
@@ -228,8 +228,8 @@ class ProductoController extends BaseController {
 
   public function bajaComentario(){
     if (isset($_SESSION["currentuser"])){
-      $nif=$this->comentario->obtenerNif($_SESSION["currentuser"]);
-      $this->comentario->bajaComentario($_GET["idComentario"],$nif);
+      $us_id=$this->comentario->obtenerUsId($_SESSION["currentuser"]);
+      $this->comentario->bajaComentario($_GET["idComentario"],$us_id);
       $this->view->setFlash("Comentario eliminado");
       $this->view->redirect("producto","detallesproducto","id=".$_GET["idProducto"]);
 

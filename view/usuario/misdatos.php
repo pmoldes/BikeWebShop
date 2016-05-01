@@ -28,13 +28,7 @@
 				<form class="form-horizontal" id="formmodificar" action="index.php?controller=usuario&amp;action=modificarUsuario" method="POST">
 					<fieldset>
 						<div class="span6 no_margin_left">
-							<legend>Detalles Personales</legend>	
-						  <div class="control-group">
-							<label class="control-label">DNI/NIF</label>
-							<div class="controls docs-input-sizes">
-							  <input type="text" readonly="readonly" value="<?php echo $usuario->getNif() ?>" class="span4" name="nif">
-							</div>
-						  </div>
+							<legend>Detalles Personales</legend>
 						  <div class="control-group">
 							<label class="control-label">Nombre</label>
 							<div class="controls docs-input-sizes">
@@ -129,7 +123,6 @@
 <script src="js/jquery.validate.js"></script>
 <script src="js/additional-methods.js"></script>
 <script src="bootstrap/js/bootstrap.js"></script>
-<script src="js/jquery.rating.pack.js"></script>
 
 <script>
 	$("#formmodificar").validate({
