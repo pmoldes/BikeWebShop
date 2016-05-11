@@ -64,19 +64,7 @@
 				
 		</div>	
 		<hr>
-			
-		<!-- <div class="span6">
-			
-			<p>
-			<input name="star1" type="radio" class="star"/>
-			<input name="star1" type="radio" class="star"/>
-			<input name="star1" type="radio" class="star"/>
-			<input name="star1" type="radio" class="star"/>
-			<input name="star1" type="radio" class="star"/>&nbsp;&nbsp;
-			</p>
-		</div>	 -->
-
-	   
+		
 		<div class="row">
 			<div class="span9">
 			    <div class="tabbable">

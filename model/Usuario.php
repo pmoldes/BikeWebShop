@@ -230,6 +230,20 @@ class Usuario {
     if(!empty($us_datos)){ return $us_datos;}
     else{ return NULL;}
   }
+
+  public function consultarUsuarioByID($us_id){
+    $stmt = $this->db->prepare("SELECT * FROM usuarios WHERE us_id= ? AND us_eliminado != '1'");
+    $stmt -> execute(array($us_id));
+    $us_datos_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    foreach($us_datos_db as $user){
+      $toret_user = new Usuario($user["us_id"], $user["us_email"],$user["us_username"], 
+                                        $user["us_password"], $user["us_nombre"], $user["us_apellidos"], 
+                                        $user["us_direccion"], $user["us_codigo_postal"],$user["us_telefono"],
+                                        $user["us_rol"]);
+    }
+    if(!empty($toret_user)){ return $toret_user;}
+    else{ return NULL;}
+  }
   
    public function modificarUsuario($usuario,$us_email){
 

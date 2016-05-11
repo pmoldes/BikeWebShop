@@ -264,6 +264,15 @@ class Producto {
     return $id["producto_id"];
   }
 
+  public function obtenerUsuarioIdByProductoId($producto_id){
+    $stmt = $this->db->prepare("SELECT fk_us_id FROM producto WHERE producto_id = ?");
+    $stmt->execute(array($producto_id));
+
+    $id = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $id["fk_us_id"];
+  }
+
   public function getDetallesProducto($producto_id){
     $stmt = $this->db->prepare("SELECT * FROM producto WHERE `producto_id` = ?");  
     $stmt -> execute(array($producto_id));

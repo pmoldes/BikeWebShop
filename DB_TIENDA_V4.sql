@@ -104,38 +104,39 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table DB_TIENDA.Interes
+-- Table DB_TIENDA.interes
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS DB_TIENDA.Interes ;
+DROP TABLE IF EXISTS DB_TIENDA.interes ;
 
--- CREATE TABLE IF NOT EXISTS DB_TIENDA.Interes (
---   interes_id INT NOT NULL AUTO_INCREMENT,
---   interes_precio VARCHAR(45) NULL,
---   interes_fecha DATETIME NULL,
---   producto_id INT NOT NULL,
---   interes_comprador VARCHAR(9) NOT NULL,
---   interes_vendedor_nif VARCHAR(9) NOT NULL,
---   interes_eliminado INT DEFAULT 0,
---   PRIMARY KEY (interes_id, interes_comprador, interes_vendedor_nif),
---   INDEX fk_reservas_producto1_idx (producto_id ASC),
---   INDEX fk_Interes_usuarios1_idx (interes_comprador ASC),
---   INDEX fk_Interes_usuarios2_idx (interes_vendedor_nif ASC),
---   CONSTRAINT fk_reservas_productos1
---     FOREIGN KEY (producto_id)
---     REFERENCES DB_TIENDA.producto (producto_id)
---     ON DELETE CASCADE
---     ON UPDATE CASCADE,
---   CONSTRAINT fk_Interes_usuarios1
---     FOREIGN KEY (interes_comprador)
---     REFERENCES DB_TIENDA.usuarios (us_id)
---     ON DELETE CASCADE
---     ON UPDATE CASCADE,
---   CONSTRAINT fk_Interes_usuarios2
---     FOREIGN KEY (interes_vendedor_nif)
---     REFERENCES DB_TIENDA.usuarios (us_id)
---     ON DELETE CASCADE
---     ON UPDATE CASCADE)
--- ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS DB_TIENDA.interes (
+  interes_id INT NOT NULL AUTO_INCREMENT,
+  interes_precio FLOAT NULL,
+  interes_fecha VARCHAR(9),
+  fk_producto_id INT NOT NULL,
+  fk_us_id_comprador INT NOT NULL,
+  fk_us_id_vendedor INT NOT NULL,
+  interes_eliminado INT DEFAULT 0,
+  PRIMARY KEY (interes_id, fk_producto_id, fk_us_id_comprador, fk_us_id_vendedor),
+  INDEX fk_Interes_producto1_idx (fk_producto_id ASC),
+  INDEX fk_Interes_usuarios1_idx (fk_us_id_comprador ASC),
+  INDEX fk_Interes_usuarios2_idx (fk_us_id_vendedor ASC),
+  CONSTRAINT fk_producto_id
+    FOREIGN KEY (fk_producto_id)
+    REFERENCES DB_TIENDA.producto (producto_id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_us_id_comprador
+    FOREIGN KEY (fk_us_id_comprador)
+    REFERENCES DB_TIENDA.usuarios (us_id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_us_id_vendedor
+    FOREIGN KEY (fk_us_id_vendedor)
+    REFERENCES DB_TIENDA.usuarios (us_id)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION
+  )
+ENGINE = InnoDB;
 
 
 INSERT INTO DB_TIENDA.usuarios(us_id,us_email,us_username,us_password,us_nombre,us_apellidos,us_direccion,us_codigo_postal,us_telefono,us_rol)
@@ -145,8 +146,8 @@ INSERT INTO DB_TIENDA.usuarios(us_id,us_email,us_username,us_password,us_nombre,
     ('3','tienducha@tienda.com','tienducha','$2y$10$0UQCDSRowRBnJXnOcS5QYeTjjo4xh8b/l6DTZZWZ35j4Bnacgk5/m','Jorge','Jorge','Vigo','00000','111222333','2'),
     ('4','user@user.com','user','$2y$10$0UQCDSRowRBnJXnOcS5QYeTjjo4xh8b/l6DTZZWZ35j4Bnacgk5/m','Tomas','Tomas','Lugo','00000','111222333','1'),
     ('5','random@hey.com','random','$2y$10$0UQCDSRowRBnJXnOcS5QYeTjjo4xh8b/l6DTZZWZ35j4Bnacgk5/m','Samuel','Samuel','Pontevedra','00000','111222333','1'),
-    ('6','alex@cromoly.com','alex','$2y$10$0UQCDSRowRBnJXnOcS5QYeTjjo4xh8b/l6DTZZWZ35j4Bnacgk5/m','Alex','Alex','Santiago','00000','111222333','2'),
-    ('7','javi@uvigo.com','javi','$2y$10$0UQCDSRowRBnJXnOcS5QYeTjjo4xh8b/l6DTZZWZ35j4Bnacgk5/m','Oscar','Maximo','Coruña','00000','111222333','2');
+    ('6','alejandro@kromoly.com','alex','$2y$10$0UQCDSRowRBnJXnOcS5QYeTjjo4xh8b/l6DTZZWZ35j4Bnacgk5/m','Alex','Alex','Santiago','00000','111222333','2'),
+    ('7','javi@uourense.com','javi','$2y$10$0UQCDSRowRBnJXnOcS5QYeTjjo4xh8b/l6DTZZWZ35j4Bnacgk5/m','Oscar','Maximo','Coruña','00000','111222333','2');
 
 INSERT INTO DB_TIENDA.tiendas(tienda_id, tienda_nombre, tienda_direccion, tienda_telefono, tienda_email, fk_us_id) 
 VALUES 

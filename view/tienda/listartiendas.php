@@ -43,7 +43,7 @@
 		    
 		<div class="span2 pull-right">
 		   <a class="btn btn-primary btn-large" 
-		   href="index.php?controller=producto&action=listarProductosTienda&id=<?php echo $tienda->getusNif()?>">Ver productos</a>
+		   href="index.php?controller=producto&action=listarProductosTienda&id=<?php echo $tienda->getusId()?>">Ver productos</a>
 	  	</div>
   	</div>
   	<hr/>	  

@@ -292,8 +292,14 @@ class ProductoController extends BaseController {
   }
 
   public function verCarrito(){
-    $this->view->setVariable("productos", $_SESSION['carrito']);
+    if(isset($_SESSION['carrito']))
+      $this->view->setVariable("productos", $_SESSION['carrito']);
     $this->view->render("productos","consultarcarrito");
+  }
+
+  public function vaciarCarrito(){
+    unset($_SESSION['carrito']);
+    $this->view->redirect("producto","consultarcarrito");
   }
 }
 

@@ -30,7 +30,6 @@ class Tienda {
 	   $this->tienda_direccion = $tienda_direccion;
      $this->tienda_email = $tienda_email;
      $this->tienda_telefono = $tienda_telefono;
-     $this->tienda_eliminado = $tienda_eliminado;
      $this->fk_us_id = $fk_us_id;
      $this->tienda_eliminado = $tienda_eliminado; 
    }
@@ -170,3 +169,4 @@ class Tienda {
   
 
 }
+?>

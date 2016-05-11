@@ -1,6 +1,10 @@
-body {padding-top: 10px;padding-bottom: 40px;}
+body {
+	padding-top: 10px;padding-bottom: 40px;
+}
 .span12
-footer h4 {margin-bottom: 8px;}
+footer h4 {
+	margin-bottom: 8px;
+}
 
 
 
@@ -133,4 +137,12 @@ text-align:center;
 
 .glyphicon.glyphicon-remove {
     font-size: 25px;
+}
+
+.right5{
+	margin-right: 10px;
+}
+
+.height100{
+	height: 100px;
 }
