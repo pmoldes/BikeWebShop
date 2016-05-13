@@ -217,6 +217,23 @@ class Producto {
       return NULL;
   }
 
+  public function getProductosAleatorios(){
+    $stmt = $this->db->prepare("SELECT * FROM producto
+                                ORDER BY RAND()
+                                LIMIT 8");  
+    $stmt -> execute();
+    $producto_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $array_producto=array();
+    foreach($producto_db as $producto){
+      array_push($array_producto, new Producto($producto["producto_id"], $producto["producto_nombre"], NULL,NULL,NULL, 
+                                              $producto["producto_precio"],NULL,$producto["producto_foto"], NULL,NULL));
+    }
+    if(!empty($array_producto))
+      return $array_producto;
+    else
+      return NULL;
+  }
+
   public function buscarProductos($filtro){
     
     $stmt = $this->db->prepare("SELECT * FROM producto WHERE (`producto_modalidad` LIKE '{$filtro}' OR

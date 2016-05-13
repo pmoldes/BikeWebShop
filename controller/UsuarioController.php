@@ -18,7 +18,8 @@ class UsuarioController extends BaseController {
   public function home(){
     $this->view->setlayout('default');
     $categorias = $this->producto->getCategorias();
-    $populares = $this->producto->getProductosPopulares();
+    //$populares = $this->producto->getProductosPopulares();
+    $populares = $this->producto->getProductosAleatorios();
     $this->view->setVariable("populares", $populares);
     $this->view->setVariable("categorias", $categorias);
     $this->view->render("usuario", "home"); 
@@ -30,7 +31,6 @@ class UsuarioController extends BaseController {
     $populares = $this->producto->getProductosPopulares();
     $this->view->render("usuario", "about"); 
   }
-
 
   public function miCuenta(){
     if(!isset($_SESSION["currentuser"]))

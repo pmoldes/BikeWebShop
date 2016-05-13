@@ -6,7 +6,7 @@
  
 ?>
 <div class="custom-collapse">
-	<div class="breadcrumb collapse-toggle visible-xs" type="button" data-toggle="collapse" 
+	<div class="breadcrumb categorias collapse-toggle visible-xs" type="button" data-toggle="collapse" 
 		data-parent="custom-collapse" data-target="#side-menu-collapse">
 	    <span><li>Categorias</li></span>
 	</div>

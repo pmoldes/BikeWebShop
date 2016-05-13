@@ -14,7 +14,6 @@
   <?php include(__DIR__."/../productos/componentelistacategorias.php"); ?>
 	</div><!-- end sidebar -->  
 
-
   <div class="span9"><!--Start right column-->
   <div class="carousel-container">
     <div id="myCarousel" class="carousel slide" data-ride="carousel"><!--Start Carousel-->
@@ -55,30 +54,24 @@
     </div>
     </br>
     <div class="row">
-    		<div class="span7 popular_products">
+    		<div class="span9 popular_products">
       		<h2>Productos populares</h2><br />
       		<ul class="thumbnails">
-             <?php foreach ($populares as $popular) { ?>
+             <?php 
+             foreach ($populares as $popular) { ?>
               <li class="span2">
                 <div class="thumbnail">
-                  <a href="index.php?controller=producto&action=detallesProducto&id=<?php echo $popular->getId()?>"><img alt="imagenproducto" src="<?php echo $popular->getFoto() ?>" /></a>
+                  <div class="imagecontainer">
+                    <a class="img" href="index.php?controller=producto&amp;action=detallesProducto&amp;id=<?php echo $popular->getId()?>"><img alt="imagenproducto" src="<?php echo $popular->getFoto() ?>" /></a>
+                  </div>
                   <div class="caption">
-                    <a href="index.php?controller=producto&action=detallesProducto&id=<?php echo $popular->getId()?>"> <h5><?php echo $popular->getNombre() ?></h5></a>  Precio: <?php echo $popular->getPrecio() ?>€<br /><br />
+                    <a href="index.php?controller=producto&amp;action=detallesProducto&amp;id=<?php echo $popular->getId()?>"> <h5><?php echo $popular->getNombre() ?></h5></a>
+                    <p>Precio: <?php echo $popular->getPrecio() ?>€</p> 
                   </div>
                 </div>
               </li>
              <?php } ?>
           </ul>
-    		</div>
-        <div class="span2">
-      		<h4>Newsletter</h4><br/>
-      		<p>Subscribete a nuestro boletin semanal para enterarte todas la novedades y ofertas de productos.</p>
-      		<form class="form-search">
-            <input type="text" class="span2" placeholder="Introduce tu email" /><br /><br />
-            <button type="submit" class="btn pull-right">Subscribe</button>
-          </form><br/><br/>
-          <a href="#"><img alt="" title="" src="css/images/paypal_mc_visa_amex_disc_150x139.gif" /></a>
-    			<a href="#"><img alt="" src="css/images/bnr_nowAccepting_150x60.gif" /></a>
     		</div>
     </div>
   </div>

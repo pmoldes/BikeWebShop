@@ -26,7 +26,7 @@
 		<div class="row header"><!-- start header -->
 			<div class="span4">
 				<a href="index.php">
-					<img class="img-responsive" src="css/images/logo.png">
+					<img class="img-responsive logo" src="css/images/logo.png">
 				</a>
 			</div>
 			<div class="span8">
@@ -43,11 +43,10 @@
 					</div>	
 				</div> -->
 				<div class="links pull-right">
-					<a href="index.php">Inicio</a> |
-					<a href="index.php?controller=usuario&amp;action=miCuenta">Mi Cuenta</a> |
-					<a href="index.php?controller=producto&amp;action=verCarrito">Carrito</a> |
-					<a href="index.php?controller=usuario&amp;action=about">Acerca de</a> |
-					<a href="index.php?controller=usuario&amp;action=about">Contacto</a>
+					<span class="glyphicon glyphicon-home"></span><a href="index.php">Inicio</a> |
+					<span class="glyphicon glyphicon-user"></span><a href="index.php?controller=usuario&amp;action=miCuenta">Mi Cuenta</a> |
+					<span class="glyphicon glyphicon-shopping-cart"></span><a href="index.php?controller=producto&amp;action=verCarrito">Carrito</a> |
+					<span class="glyphicon glyphicon-envelope"></span><a href="index.php?controller=usuario&amp;action=about">Contacto</a>
 				</div>
 			</div>
 		</div><!-- end header -->
@@ -78,7 +77,7 @@
 					<form id="searchForm" class="navbar-search"  method="POST" action="index.php?controller=producto&amp;action=buscarProductos">
 						<fieldset>
 						<input name="filtro" type="text" class="search-query span2" placeholder="Buscar">
-						<button class="btn btn-primary btn-small search_btn" type="submit">GO!</button>
+						<button class="glyphicon glyphicon-search btn btn-primary btn-small search_btn" type="submit"></button>
 						</fieldset>
 					</form>
 				  </ul>
@@ -98,16 +97,18 @@
 	<?= $view->getFragment(ViewManager::DEFAULT_FRAGMENT) ?>   <!-- fragment -->	
 	<footer>
 		<hr/>
-		<div class="row well no_margin_left">
-			<div class="">
+		<div class="span12">
+		<div class="row well">
+			<div class="footer">
 				<h4>Informacion</h4>
 				<ul>
 					<li><a href="index.php?controller=usuario&amp;action=about">Sobre nosotros</a></li>
-					<li><a href="index.php?controller=usuario&amp;action=about">Informacion de envio</a></li>
-					<li><a href="index.php?controller=usuario&amp;action=about">Devoluciones</a></li>
-					<li><a href="index.php?controller=usuario&amp;action=about">Terminos y condiciones</li>
+					<li><a href="#">Informacion de envio</a></li>
+					<li><a href="#">Devoluciones</a></li>
+					<li><a href="#">Quienes somos</li>
 				</ul>
 			</div>
+		</div>
 		</div>
 	</footer>
 
