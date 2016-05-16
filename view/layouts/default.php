@@ -94,21 +94,43 @@
 			<?= $view->popFlash() ?>
 	    </div>
     <?php } ?>
-	<?= $view->getFragment(ViewManager::DEFAULT_FRAGMENT) ?>   <!-- fragment -->	
-	<footer>
+    <div class="main-content">
+		<?= $view->getFragment(ViewManager::DEFAULT_FRAGMENT) ?>   <!-- fragment -->	
+	</div>
+	
+	<footer >
 		<hr/>
-		<div class="span12">
 		<div class="row well">
-			<div class="footer">
-				<h4>Informacion</h4>
-				<ul>
-					<li><a href="index.php?controller=usuario&amp;action=about">Sobre nosotros</a></li>
-					<li><a href="#">Informacion de envio</a></li>
-					<li><a href="#">Devoluciones</a></li>
-					<li><a href="#">Quienes somos</li>
-				</ul>
+				<div class="footer">
+					<div class="span4">
+						<h4>Enlaces</h4>
+						<ul>
+							<li><a href="index.php">Inicio</a></li>
+							<li><a href="index.php?controller=usuario&amp;action=miCuenta">Mi Cuenta</a></li>
+							<li><a href="index.php?controller=producto&amp;action=verCarrito">Carrito</a></li>
+							<li><a href="index.php?controller=usuario&amp;action=about">Contacto</a></li>
+						</ul>
+					</div>
+					<div class="span4">
+						<h4>Modalidades</h4>
+						<ul>
+							<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=BMX">BMX</a></li>
+							<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Carretera">Carretera</a></li>
+							<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Fixed">Fixed</a></li>
+							<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Montaña">Montaña</a></li>
+							<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Ropa">Ropa y accesorios</a></li>
+							<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Mecanica">Mecánica</a></li>
+						</ul>
+					</div>
+					<div class="span3">
+						<h4>Informacion</h4>
+						<ul>
+							<li><a href="index.php?controller=usuario&amp;action=about">Sobre nosotros</a></li>
+							<li><a href="#">Quienes somos</li>
+							<li><a href="#">Contacto</li>
+						</ul>
+					</div>
 			</div>
-		</div>
 		</div>
 	</footer>
 

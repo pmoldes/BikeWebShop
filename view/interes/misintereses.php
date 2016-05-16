@@ -36,8 +36,8 @@
 						  
 						  <div class="span6">
 						   <a href="index.php?controller=producto&amp;action=detallesProducto&amp;id=<?php echo $productoRel->getId()?>"><h3><?php echo $productoRel->getNombre() ?></h3></a>
-					     <p><span class="right5 glyphicon glyphicon-envelope"></span><a href="mailto:<?php echo $usuarioRel->getEmail() ?>"><?php echo $usuarioRel->getEmail() ?></a><br>
-					     		<span class="right5 glyphicon glyphicon-earphone"></span><a href="tel:<?php echo $usuarioRel->getTelefono() ?>"><?php echo $usuarioRel->getTelefono() ?></a></p>
+					     	<p><span class="right5 glyphicon glyphicon-envelope"></span><a href="mailto:<?php echo $usuarioRel->getEmail() ?>"><?php echo $usuarioRel->getEmail() ?></a></p>
+					     	<p><span class="right5 glyphicon glyphicon-earphone"></span><a href="tel:<?php echo $usuarioRel->getTelefono() ?>"><?php echo $usuarioRel->getTelefono() ?></a></p>
 						  </div>	
 
 						  <div class="span1">

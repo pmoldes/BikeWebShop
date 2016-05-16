@@ -187,27 +187,3 @@ VALUES
   ('3','Cumple lo que promete','Esta bien, funciona y los materiales son decentes, podria ser algo mas pequeño','Samuel','5','12','5');
 
 
--- -----------------------------------------------------
--- Table DB_TIENDA.usuarios_has_usuarios
--- -----------------------------------------------------
--- DROP TABLE IF EXISTS DB_TIENDA.usuarios_has_usuarios ;
-
--- CREATE TABLE IF NOT EXISTS DB_TIENDA.usuarios_has_usuarios (
---   usuarios_nif VARCHAR(45) NOT NULL,
---   usuarios_nif1 VARCHAR(45) NOT NULL,
---   PRIMARY KEY (usuarios_nif, usuarios_nif1),
---   INDEX fk_usuarios_has_usuarios_usuarios2_idx (usuarios_nif1 ASC),
---   INDEX fk_usuarios_has_usuarios_usuarios1_idx (usuarios_nif ASC),
---   CONSTRAINT fk_usuarios_has_usuarios_usuarios1
---     FOREIGN KEY (usuarios_nif)
---     REFERENCES DB_TIENDA.usuarios (us_id)
---     ON DELETE CASCADE
---     ON UPDATE CASCADE,
---   CONSTRAINT fk_usuarios_has_usuarios_usuarios2
---     FOREIGN KEY (usuarios_nif1)
---     REFERENCES DB_TIENDA.usuarios (us_id)
---     ON DELETE CASCADE
---     ON UPDATE CASCADE)
--- ENGINE = InnoDB;
-
-
