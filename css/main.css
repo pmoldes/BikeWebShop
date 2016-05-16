@@ -1,17 +1,36 @@
-body {padding-top: 10px;padding-bottom: 40px;}
-.span12
-footer h4 {margin-bottom: 8px;}
+body {
+	padding-top: 10px;padding-bottom: 40px;
+}
 
+.footer{
+	margin-left: 20px;
+}
 
+.footer ul{
+	list-style: none;
+	margin: 0;
+}
+
+.footer h4 {
+	margin-bottom: 8px;
+}
 
 .header {
     position: relative;
     height: 100%;
 }
+
+.logo{
+	padding-bottom: 5px;
+}
+
 .header .links {
-    position: relative;
-    right: 0;
-    bottom: 0;
+	padding-top: 40px;
+}
+
+.header .links .glyphicon{
+	padding-right: 3px;
+	padding-left: 3px;
 }
 
 /* product_list - the side bar*/
@@ -24,46 +43,23 @@ footer h4 {margin-bottom: 8px;}
 	margin: 0;
 }
 .product_list > ul > li {
-	padding: 8px 8px 8px 0px;
+	padding: 8px 8px 5px 10px;
 }
 .product_list > ul > li + li {
 	border-top: 1px solid #EEEEEE;
 }
-.product_list > ul > li > a {
-	text-decoration: none;
-}
-.product_list > ul > li > a:hover{
-	text-decoration: none;
-	background: none;
-}
-.product_list > ul > li ul {
-	display: none;
-}
-.product_list > ul > li a.active {
-	font-weight: bold;
-}
-.product_list > ul > li a.active + ul {
-	display: block;
-}
-.product_list > ul > li ul > li {
-	padding: 5px 5px 0px 10px;
-}
-.product_list > ul > li ul > li > a {
-	text-decoration: none;
-	display: block;
-}
-.product_list > ul > li ul > li > a.active {
-	font-weight: bold;
-}
+
 .container .main-container{
 	width: auto;
 }
-@media (min-width: 768px) {
+
+/*@media (min-width: 768px) {
 	.custom-collapse .collapse
 	{
 	    display:block;
 	}  
-}
+}*/
+
 .related_products .span2 {
 width:160px;
 }
@@ -90,6 +86,20 @@ text-align:center;
 
 }
 
+.thumbnail {
+	position: relative;
+	height: 220px;
+}
+
+.thumbnail .imagecontainer{
+	vertical-align: middle;
+	height: 70%;
+}
+
+.thumbnail .caption{
+	height: 30%;
+}
+
 .product_comparison small{
 font-weight: normal;
 }
@@ -104,18 +114,62 @@ text-align:center;
 }
 .navbar .btn.search_btn {
 margin-top:1px;
+width: 50px;
 }
 
 .popular_products .span2{
 width:160px;
 }
 
+.row-centered {
+    text-align:center;
+}
 
 .customer_service {
 text-align:right;
 font-size:13px;
 }
 
-.table td.center_text{
+.table td.vertical-center_text{
+vertical-align: middle; 
+}
+
+.table td.horizontal-center_text{
 text-align:center;
+}
+
+.table-centered{
+text-align:center;
+}
+
+.glyphicon.glyphicon-remove {
+    font-size: 25px;
+}
+
+.right5{
+	margin-right: 10px;
+}
+
+.height100{
+	height: 100px;
+}
+
+.datos-tienda{
+	text-align: left;
+	padding-left: 20px;
+}
+
+.btn-group{
+	text-align: center;
+	margin-top: 15px;
+	padding-left: 20px;
+}
+
+.btn-group .btn{
+	margin-bottom: 5px;
+	margin-top: 5px;
+	margin-left: 5px;
+	margin-right: 5px;
+	text-align: center;
+	width: 85px;
 }

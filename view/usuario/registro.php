@@ -26,13 +26,6 @@
 						<div class="span6 no_margin_left">
 							<legend>Detalles Personales</legend>
 						  <div class="control-group">
-							<label class="control-label">DNI</label>
-							<div class="controls docs-input-sizes">
-							  <input type="text" placeholder="" class="span4" name="nif">
-						  		<?= isset($errors["nif"])?$errors["nif"]:"" ?>
-							</div>
-						  </div>	
-						  <div class="control-group">
 							<label class="control-label">Nombre</label>
 							<div class="controls docs-input-sizes">
 							  <input type="text" placeholder="" class="span4" name="nombre">
@@ -139,10 +132,7 @@
 	
 	$("#formregistro").validate({
     rules: {
-      nif: {
-        required: true,
-        //nif:true
-      },
+      
       nombre: {
         required: true,
         letras_espacios: true,

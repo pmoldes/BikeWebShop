@@ -26,7 +26,7 @@
 		<div class="row header"><!-- start header -->
 			<div class="span4">
 				<a href="index.php">
-					<img class="img-responsive" src="css/images/logo.png">
+					<img class="img-responsive logo" src="css/images/logo.png">
 				</a>
 			</div>
 			<div class="span8">
@@ -43,11 +43,10 @@
 					</div>	
 				</div> -->
 				<div class="links pull-right">
-					<a href="index.php">Inicio</a> |
-					<a href="index.php?controller=usuario&amp;action=miCuenta">Mi Cuenta</a> |
-					<a href="index.php?controller=usuario&amp;action=about">Carrito de la compra</a> |
-					<a href="index.php?controller=usuario&amp;action=about">Acerca de</a> |
-					<a href="index.php?controller=usuario&amp;action=about">Contacto</a>
+					<span class="glyphicon glyphicon-home"></span><a href="index.php">Inicio</a> |
+					<span class="glyphicon glyphicon-user"></span><a href="index.php?controller=usuario&amp;action=miCuenta">Mi Cuenta</a> |
+					<span class="glyphicon glyphicon-shopping-cart"></span><a href="index.php?controller=producto&amp;action=verCarrito">Carrito</a> |
+					<span class="glyphicon glyphicon-envelope"></span><a href="index.php?controller=usuario&amp;action=about">Contacto</a>
 				</div>
 			</div>
 		</div><!-- end header -->
@@ -73,16 +72,14 @@
 					<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Ropa">Ropa y accesorios</a></li>
 					<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Mecanica">Mecánica</a></li>
 				  </ul>
-
 				  <ul class="nav pull-right">
 				   <li class="divider-vertical"></li>
 					<form id="searchForm" class="navbar-search"  method="POST" action="index.php?controller=producto&amp;action=buscarProductos">
 						<fieldset>
 						<input name="filtro" type="text" class="search-query span2" placeholder="Buscar">
-						<button class="btn btn-primary btn-small search_btn" type="submit">GO!</button>
+						<button class="glyphicon glyphicon-search btn btn-primary btn-small search_btn" type="submit"></button>
 						</fieldset>
 					</form>
-					
 				  </ul>
 				</div><!-- /.nav-collapse -->
 			  </div>
@@ -97,23 +94,44 @@
 			<?= $view->popFlash() ?>
 	    </div>
     <?php } ?>
-	<?= $view->getFragment(ViewManager::DEFAULT_FRAGMENT) ?>   <!-- fragment -->	
-
-	<footer>
-	<hr/>
-	<div class="row well no_margin_left">
-
-	<div class="span3">
-		<h4>Informacion</h4>
-		<ul>
-			<li><a href="index.php?controller=usuario&amp;action=about">Sobre nosotros</a></li>
-			<li><a href="index.php?controller=usuario&amp;action=about">Informacion de envio</a></li>
-			<li><a href="index.php?controller=usuario&amp;action=about">Devoluciones</a></li>
-			<li><a href="index.php?controller=usuario&amp;action=about">Terminos y condiciones</li>
-		</ul>
+    <div class="main-content">
+		<?= $view->getFragment(ViewManager::DEFAULT_FRAGMENT) ?>   <!-- fragment -->	
 	</div>
-
-	</div>
+	
+	<footer >
+		<hr/>
+		<div class="row well">
+				<div class="footer">
+					<div class="span4">
+						<h4>Enlaces</h4>
+						<ul>
+							<li><a href="index.php">Inicio</a></li>
+							<li><a href="index.php?controller=usuario&amp;action=miCuenta">Mi Cuenta</a></li>
+							<li><a href="index.php?controller=producto&amp;action=verCarrito">Carrito</a></li>
+							<li><a href="index.php?controller=usuario&amp;action=about">Contacto</a></li>
+						</ul>
+					</div>
+					<div class="span4">
+						<h4>Modalidades</h4>
+						<ul>
+							<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=BMX">BMX</a></li>
+							<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Carretera">Carretera</a></li>
+							<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Fixed">Fixed</a></li>
+							<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Montaña">Montaña</a></li>
+							<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Ropa">Ropa y accesorios</a></li>
+							<li><a href="index.php?controller=producto&amp;action=listarProductos&amp;filtro=Mecanica">Mecánica</a></li>
+						</ul>
+					</div>
+					<div class="span3">
+						<h4>Informacion</h4>
+						<ul>
+							<li><a href="index.php?controller=usuario&amp;action=about">Sobre nosotros</a></li>
+							<li><a href="#">Quienes somos</li>
+							<li><a href="#">Contacto</li>
+						</ul>
+					</div>
+			</div>
+		</div>
 	</footer>
 
 </div> <!-- /container -->
@@ -123,7 +141,6 @@
 
 <script src="js/jquery-1.12.3.js"></script>
 <script src="bootstrap/js/bootstrap.js"></script>
-<script src="bootstrap/js/bootstrap3.min.js"></script>
 
 <script type="text/javascript">
 	$("#success-alert").fadeTo(2000, 500).slideUp(500, function(){

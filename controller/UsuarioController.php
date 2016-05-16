@@ -18,7 +18,8 @@ class UsuarioController extends BaseController {
   public function home(){
     $this->view->setlayout('default');
     $categorias = $this->producto->getCategorias();
-    $populares = $this->producto->getProductosPopulares();
+    //$populares = $this->producto->getProductosPopulares();
+    $populares = $this->producto->getProductosAleatorios();
     $this->view->setVariable("populares", $populares);
     $this->view->setVariable("categorias", $categorias);
     $this->view->render("usuario", "home"); 
@@ -30,7 +31,6 @@ class UsuarioController extends BaseController {
     $populares = $this->producto->getProductosPopulares();
     $this->view->render("usuario", "about"); 
   }
-
 
   public function miCuenta(){
     if(!isset($_SESSION["currentuser"]))
@@ -47,7 +47,7 @@ class UsuarioController extends BaseController {
   public function acceso() {
      if (isset($_POST["correo"])){  
       //if ($this->usuario->isValidUser($_POST["correo"], $_POST["contra"])) {
-      $hash_pass = $this->usuario->getPass($_POST["correo"]);;
+      $hash_pass = $this->usuario->getPass($_POST["correo"]);
       $check = password_verify($_POST["contra"], $hash_pass);
       if ($check) {
           $_SESSION["currentuser"]=$_POST["correo"];
@@ -75,17 +75,18 @@ class UsuarioController extends BaseController {
     $valid=true;
     $errors = array();
 
-    if (isset($_POST["nif"])){ // reaching via HTTP Post...
+    if (isset($_POST["correo"])){ // reaching via HTTP Post...
       
 
-      //Comprobamos si existe el nif email y username
-      if($this->usuario->nifExists($_POST["nif"])){
-        $errors["nif"] = "El NIF ya existe";
+      //Comprobamos si existe el email y username
+      if($this->usuario->emailExists($_POST["correo"])){
+        $errors["email"] = "El email ya existe";
         $this->view->setVariable("errors", $errors);
         $valid=false;
       }
-      if($this->usuario->emailExists($_POST["correo"])){
-        $errors["email"] = "El email ya existe";
+
+      if($this->usuario->usernameExists($_POST["username"])){
+        $errors["username"] = "El nombre de usuario ya existe";
         $this->view->setVariable("errors", $errors);
         $valid=false;
       }
@@ -93,7 +94,6 @@ class UsuarioController extends BaseController {
       
       //Si no existe ningun usuario con esos datos lo creamos
       if($valid){
-        $user->setNif($_POST["nif"]);
         $user->setEmail($_POST["correo"]);
         $user->setUsername($_POST["username"]);
         $user->setPassword(password_hash($_POST["contra"], PASSWORD_DEFAULT));
@@ -142,8 +142,8 @@ class UsuarioController extends BaseController {
     $user = new Usuario();
 
     if( isset($_SESSION["currentuser"]) && isset($_POST["correo"]) ){
-        
-        if($this->usuario->emailModificar($_POST["nif"],$_POST["correo"])){
+        $us_id = $this->usuario->obtenerIDbyEmail($_SESSION["currentuser"]);
+        if($this->usuario->emailModificar($us_id,$_POST["correo"])){
           $errors["email"] = "El email ya existe";
           $us_datos = $this->usuario->consultarUsuario($_SESSION["currentuser"]);
           $this->view->setVariable("us_datos",$us_datos);
@@ -152,7 +152,7 @@ class UsuarioController extends BaseController {
         }else{
           $user->setEmail($_POST["correo"]);
           $user->setUsername($_POST["username"]);
-          $user->setPassword($_POST["contra"]);
+          $user->setPassword(password_hash($_POST["contra"], PASSWORD_DEFAULT));
           $user->setNombre($_POST["nombre"]);
           $user->setApellidos($_POST["apellidos"]);
           $user->setDireccion($_POST["direccion"]);
@@ -161,6 +161,7 @@ class UsuarioController extends BaseController {
 
           $this->usuario->modificarUsuario($user,$_SESSION["currentuser"]);
           $_SESSION["currentuser"] = $_POST["correo"];
+          $this->view->setFlash("Datos modificados correctamente");
           $this->view->redirect("usuario","consultarUsuario");
         }
         $this->view->setFlash("Datos modificados correctamente");

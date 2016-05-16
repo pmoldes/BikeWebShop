@@ -19,7 +19,7 @@ class Producto {
   private $producto_cantidad;
   private $producto_foto;
   private $producto_nuevo;
-  private $us_nif;
+  private $fk_us_id;
   private $producto_eliminado;
 
   //constructor
@@ -27,7 +27,7 @@ class Producto {
   public function __construct($producto_id=NULL, $producto_nombre=NULL, $producto_modalidad=NULL, 
                               $producto_categoria=NULL, $producto_descripcion=NULL,
                               $producto_precio=NULL,$producto_cantidad=NULL,$producto_foto=NULL,
-                              $producto_nuevo=NULL,$us_nif=NULL, $producto_eliminado=NULL) {
+                              $producto_nuevo=NULL,$fk_us_id=NULL, $producto_eliminado=NULL) {
 	   $this->db = PDOConnection::getInstance();
      $this->producto_id = $producto_id; 
      $this->producto_nombre = $producto_nombre;
@@ -38,7 +38,7 @@ class Producto {
      $this->producto_cantidad = $producto_cantidad;
      $this->producto_foto = $producto_foto; 
      $this->producto_nuevo = $producto_nuevo;
-     $this->us_nif = $us_nif;
+     $this->fk_us_id = $fk_us_id;
      $this->producto_eliminado = $producto_eliminado;
 
    }
@@ -116,12 +116,12 @@ class Producto {
     $this->producto_nuevo = $producto_nuevo;
   }
 
-  public function getNif() {
-    return $this->us_nif;
+  public function getUsId() {
+    return $this->fk_us_id;
   }
 
-  public function setNif($us_nif) {
-    $this->us_nif = $us_nif;
+  public function setUsId($fk_us_id) {
+    $this->fk_us_id = $fk_us_id;
   }
 
   public function getEliminado() {
@@ -134,12 +134,11 @@ class Producto {
 
   //Funciones de base de datos 
   
-  public function save($producto,$nif) {
+  public function save($producto) {
     $stmt = $this->db->prepare("INSERT INTO producto values ('',?,?,?,?,?,?,?,?,?,'0')");
-    $stmt->execute(array($producto->getNombre(), $producto->getModalidad(),$producto->getCategoria(),
-                          $producto->getDescripcion(), $producto->getPrecio(),
+    $stmt->execute(array($producto->getNombre(), $producto->getModalidad(),$producto->getCategoria(),$producto->getDescripcion(), $producto->getPrecio(),
                           $producto->getCantidad(), $producto->getFoto(),$producto->getNuevo(),
-                          $producto->getNif()));  
+                          $producto->getUsId()));  
   }
 
   public function modificarProducto($producto,$producto_id) {
@@ -154,9 +153,9 @@ class Producto {
     return true; 
   }
 
-  public function bajaProducto($producto_id, $us_nif){
-    $stmt = $this->db->prepare("UPDATE producto set producto_eliminado = '1' WHERE producto_id = ? AND us_nif = ?");
-    $stmt->execute(array($producto_id, $us_nif));
+  public function bajaProducto($producto_id, $fk_us_id){
+    $stmt = $this->db->prepare("UPDATE producto set producto_eliminado = '1' WHERE producto_id = ? AND fk_us_id = ?");
+    $stmt->execute(array($producto_id, $fk_us_id));
 
     return true;
 
@@ -164,7 +163,7 @@ class Producto {
 
   public function getProductos($filtro){
     $stmt = $this->db->prepare("SELECT * FROM producto 
-                                WHERE (`producto_modalidad` = ? OR `producto_categoria` = ? OR `us_nif` = ?) 
+                                WHERE (`producto_modalidad` = ? OR `producto_categoria` = ? OR `fk_us_id` = ?) 
                                 AND producto_eliminado != 1");  
     $stmt -> execute(array($filtro,$filtro,$filtro));
     $producto_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -173,7 +172,7 @@ class Producto {
       array_push($array_producto, new Producto($producto["producto_id"], $producto["producto_nombre"], $producto["producto_modalidad"],
                                         $producto["producto_categoria"],$producto["producto_descripcion"], $producto["producto_precio"],
                                         $producto["producto_cantidad"],$producto["producto_foto"], $producto["producto_nuevo"], 
-                                        $producto["us_nif"]));
+                                        $producto["fk_us_id"]));
     }
     if(!empty($array_producto))
       return $array_producto;
@@ -190,7 +189,7 @@ class Producto {
       array_push($array_producto, new Producto($producto["producto_id"], $producto["producto_nombre"], $producto["producto_modalidad"],
                                         $producto["producto_categoria"],$producto["producto_descripcion"], $producto["producto_precio"],
                                         $producto["producto_cantidad"],$producto["producto_foto"], $producto["producto_nuevo"], 
-                                        $producto["us_nif"]));
+                                        $producto["fk_us_id"]));
     }
     if(!empty($array_producto))
       return $array_producto;
@@ -201,10 +200,27 @@ class Producto {
   public function getProductosPopulares(){
     $stmt = $this->db->prepare("SELECT count(*) as cuenta, P.`producto_id`, P.`producto_nombre`, P.`producto_precio`, P.`producto_foto`
                                 FROM producto P, comentarios C 
-                                WHERE P.`producto_id`= C.`producto_id` AND producto_eliminado != 1
+                                WHERE P.`producto_id`= C.`fk_producto_id` AND producto_eliminado != 1
                                 group by P.`producto_id` 
                                 order by cuenta desc
                                 limit 8");  
+    $stmt -> execute();
+    $producto_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $array_producto=array();
+    foreach($producto_db as $producto){
+      array_push($array_producto, new Producto($producto["producto_id"], $producto["producto_nombre"], NULL,NULL,NULL, 
+                                              $producto["producto_precio"],NULL,$producto["producto_foto"], NULL,NULL));
+    }
+    if(!empty($array_producto))
+      return $array_producto;
+    else
+      return NULL;
+  }
+
+  public function getProductosAleatorios(){
+    $stmt = $this->db->prepare("SELECT * FROM producto
+                                ORDER BY RAND()
+                                LIMIT 8");  
     $stmt -> execute();
     $producto_db = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $array_producto=array();
@@ -230,7 +246,7 @@ class Producto {
 
     foreach($producto_db as $producto){
       array_push($array_producto, new Producto($producto["producto_id"], $producto["producto_nombre"], $producto["producto_modalidad"],$producto["producto_categoria"],$producto["producto_descripcion"], $producto["producto_precio"],$producto["producto_cantidad"],$producto["producto_foto"], $producto["producto_nuevo"], 
-        $producto["us_nif"]));
+        $producto["fk_us_id"]));
     }
     if(!empty($array_producto))
       return $array_producto;
@@ -265,6 +281,15 @@ class Producto {
     return $id["producto_id"];
   }
 
+  public function obtenerUsuarioIdByProductoId($producto_id){
+    $stmt = $this->db->prepare("SELECT fk_us_id FROM producto WHERE producto_id = ?");
+    $stmt->execute(array($producto_id));
+
+    $id = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $id["fk_us_id"];
+  }
+
   public function getDetallesProducto($producto_id){
     $stmt = $this->db->prepare("SELECT * FROM producto WHERE `producto_id` = ?");  
     $stmt -> execute(array($producto_id));
@@ -273,7 +298,7 @@ class Producto {
     foreach($producto_db as $producto){
       array_push($array_producto, new Producto($producto["producto_id"], $producto["producto_nombre"],
       $producto["producto_modalidad"],$producto["producto_categoria"],$producto["producto_descripcion"], $producto["producto_precio"],$producto["producto_cantidad"],$producto["producto_foto"], $producto["producto_nuevo"], 
-                                        $producto["us_nif"]));
+                                        $producto["fk_us_id"]));
     }
     if(!empty($array_producto))
       return $array_producto;
@@ -282,13 +307,13 @@ class Producto {
     
   }
 
-  public function obtenerNif($us_email){
-    $stmt = $this->db->prepare("SELECT us_nif FROM usuarios WHERE us_email = ?");
+  public function obtenerUsID($us_email){
+    $stmt = $this->db->prepare("SELECT us_id FROM usuarios WHERE us_email = ?");
     $stmt->execute(array($us_email));
 
-    $nif = $stmt->fetch(PDO::FETCH_ASSOC);
+    $us_id = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    return $nif["us_nif"];
+    return $us_id["us_id"];
   } 
 
 

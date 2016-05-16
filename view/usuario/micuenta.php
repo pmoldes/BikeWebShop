@@ -14,7 +14,6 @@
 		<ul class="breadcrumb">
 			<li><a href="index.php">Inicio</a> <span class="divider">/</span></li>
 			<li class="active"><a href="index.php?controller=usuario&amp;action=miCuenta">Mi Cuenta</a> <span class="divider">/</span></li>
-			
 		</ul>
 
 		<div class="row">
@@ -23,17 +22,17 @@
 			</div>
 		</div>
 		
-		<hr />
+		<hr/>
 
 		<div class="row">
 
-			<div class="span5 well">
+			<div class="height100 span5 well">
 				<h2>Añadir un producto</h2>
 				<p>Añade un producto que estés interesado en vender</p><br />
 				<a href="index.php?controller=producto&amp;action=altaproducto" class="btn btn-primary pull-right">Añadir producto</a>
 			</div>
 
-			<div class="span5 well pull-right">
+			<div class="height100 span5 well pull-right">
 				<h2>Consultar mis productos</h2>
 				<p>Consulta los productos que tienes a la venta</p><br />
 				<a href="index.php?controller=producto&amp;action=listarMisProductos" class="btn btn-primary pull-right">Consultar productos</a>
@@ -43,29 +42,32 @@
 
 		<div class="row">
 
-			<div class="span5 well">
+			<div class="height100 span5 well">
 				<h2>Consultar mis Datos</h2>
 				<p>Consulta o modifica los datos de tu cuenta</p>
 				<a href="index.php?controller=usuario&amp;action=consultarUsuario" class="btn btn-primary pull-right">Mis datos</a>
 			</div>
 
-			<div class="span5 well pull-right">
+			<div class="height100 span5 well pull-right">
 				<h2>Consultar mis intereses</h2>
-				<p>Consulta los productos en los que has mostrado interés</p>
-				<a href="#" class="btn btn-primary pull-right">Consultar productos</a>
+				<p>Consulta los productos en los que has mostrado interés o los productos o cuales de tus productos interesan a otros usuarios</p>
+				<div class="pull-right">
+					<a href="index.php?controller=interes&amp;action=consultarInteresComprador" class="btn btn-primary">Como comprador</a>
+					<a href="index.php?controller=interes&amp;action=consultarInteresVendedor" class="btn btn-primary">Como vendedor</a>
+				</div>
 			</div>
 
 		</div>
 
 		<div class="row">
 
-			<div class="span5 well">
+			<div class="height100 span5 well">
 				<h2>Darse de baja</h2>
 				<p>Dar de baja tu cuenta de usuario</p>
 				<a href="index.php?controller=usuario&amp;action=bajaUsuario" onclick="javascript:return confirmar();" class="btn btn-danger pull-right">Baja Cuenta</a>
 			</div>
 
-			<div class="span5 well pull-right">
+			<div class="height100 span5 well pull-right">
 				<h2>Cerrar sesión</h2>
 				<p>Cierra tu sesion de usuario</p>
 				<a href="index.php?controller=usuario&amp;action=logout" class="btn btn-primary pull-right">Salir</a>

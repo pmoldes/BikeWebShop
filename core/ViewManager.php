@@ -29,7 +29,7 @@ class ViewManager {
    * 
    * @var string
    */
-  const DEFAULT_FRAGMENT = "__default__";
+  const DEFAULT_FRAGMENT = "default";
   
   /**
    * Buffered contents accumulted per each fragment

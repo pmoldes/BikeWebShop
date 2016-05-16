@@ -17,11 +17,11 @@ class TiendaController extends BaseController {
     if(!isset($_SESSION["currentuser"]))
       $this->view->render("usuario", "acceso");
     else{
-      $us_nif=$this->tienda->obtenerNif($_SESSION["currentuser"]);//obtener nif a partir del email
-      if(!$this->tienda->existeTienda($us_nif))
+      $us_id=$this->tienda->obtenerID($_SESSION["currentuser"]);//obtener id a partir del email
+      if(!$this->tienda->existeTienda($us_id))
         $this->view->render("tienda", "altatienda");
       else
-        $ti_datos = $this->tienda->consultarTienda($us_nif);
+        $ti_datos = $this->tienda->consultarTienda($us_id);
         $this->view->setVariable("ti_datos",$ti_datos);
         $this->view->render("tienda", "mitienda");
     }
@@ -31,7 +31,7 @@ class TiendaController extends BaseController {
   public function altaTienda() {
     if (isset($_SESSION["currentuser"])){
       $newTienda = new Tienda();
-      $us_nif=$this->tienda->obtenerNif($_SESSION["currentuser"]);//obtener nif a partir del email
+      $us_id=$this->tienda->obtenerID($_SESSION["currentuser"]);//obtener id a partir del email
       $errors = array();
       
       if (isset($_POST["nombre"])){ // reaching via HTTP Post...
@@ -39,7 +39,7 @@ class TiendaController extends BaseController {
         $newTienda->setDireccion($_POST["direccion"]);
         $newTienda->setTelefono($_POST["telefono"]);
         $newTienda->setEmail($_POST["correo"]);
-        $newTienda->setusNif($us_nif);
+        $newTienda->setusID($us_id);
         
         $this->tienda->save($newTienda);
         $this->view->setFlash("Tienda añadida correctamente");
@@ -58,14 +58,14 @@ class TiendaController extends BaseController {
     $tienda = new Tienda();
 
     if( isset($_SESSION["currentuser"]) && isset($_POST["nombre"]) ){
-      $us_nif=$this->tienda->obtenerNif($_SESSION["currentuser"]);//obtener nif a partir del email
+      $us_id=$this->tienda->obtenerID($_SESSION["currentuser"]);//obtener id a partir del email
 
       $tienda->setNombre($_POST["nombre"]);
       $tienda->setDireccion($_POST["direccion"]);
       $tienda->setTelefono($_POST["telefono"]);
       $tienda->setEmail($_POST["correo"]);
 
-      $this->tienda->modificarTienda($tienda,$us_nif);
+      $this->tienda->modificarTienda($tienda,$us_id);
       $this->view->setFlash("Datos modificados correctamente");
       $this->view->redirect("tienda","mitienda");
     }else{
@@ -75,9 +75,9 @@ class TiendaController extends BaseController {
 
   public function bajaTienda(){
     if (isset($_SESSION["currentuser"])){
-      $us_nif=$this->tienda->obtenerNif($_SESSION["currentuser"]);//obtener nif a partir del email
-      if($this->tienda->existeTienda($us_nif)){
-        $this->tienda->bajaTienda($us_nif);
+      $us_id=$this->tienda->obtenerID($_SESSION["currentuser"]);//obtener id a partir del email
+      if($this->tienda->existeTienda($us_id)){
+        $this->tienda->bajaTienda($us_id);
         $this->view->setFlash("Tienda eliminada correctamente");
         $this->view->redirect("usuario", "micuenta");
       }

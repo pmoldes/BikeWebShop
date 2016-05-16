@@ -11,32 +11,19 @@
 ?>
 <div class="row">
 	<div class="span3"><!-- start sidebar -->
-	<ul class="breadcrumb">
-	    <li>Categorias</span></li>
-	</ul>
-		<div class="span3 product_list">
-			<ul class="nav">
-				<?php foreach ($categorias as $cat){ ?>
-				<li><a href="index.php?controller=producto&action=listarProductos&filtro=<?php echo $cat->getCategoria()?>"><?php echo $cat->getCategoria()?></a></li>
-				<?php }?>
-			</ul>
-		</div>
-	</div><!-- end sidebar -->	
-
+  		<?php include(__DIR__."/../productos/componentelistacategorias.php"); ?>
+	</div><!-- end sidebar -->  
 
 	<div class="span9">
-
-		<div class="span9">
-			<ul class="breadcrumb"> <!-- Start Indice -->
-		    	<li><a href="index.php">Inicio</a> <span class="divider">/</span></li>				
-		    	<li>
-		    		<a href="index.php?controller=producto&action=listarProductos">Productos</a> <span class="divider">/</span>
-	    		</li>
-				<li class="active">
-		    		<a href="#"><?php echo $producto[0]->getNombre() ?></a> 
-		    	</li>
-	    	</ul><!-- End Indice -->
-		</div>
+		<ul class="breadcrumb"> <!-- Start Indice -->
+	    	<li><a href="index.php">Inicio</a> <span class="divider">/</span></li>				
+	    	<li>
+	    		<a href="index.php?controller=producto&amp;action=listarProductos">Productos</a> <span class="divider">/</span>
+    		</li>
+			<li class="active">
+	    		<a href="#"><?php echo $producto[0]->getNombre() ?></a> 
+	    	</li>
+    	</ul><!-- End Indice -->
 		
 		 <div class="row">
 			 <div class="span9">
@@ -58,36 +45,25 @@
 									echo "Usado";?>
 					</span><br/>
 					<h2><strong>Precio: <?php echo $producto[0]->getPrecio() ?>€</strong></h2>
-					<button class="btn btn-primary" type="submit">Añadir al carrito</button>
+					<a class="btn btn-primary" 
+					href="index.php?controller=producto&amp;action=anhadirAlCarrito&amp;id=<?php echo $producto[0]->getId()?>">Añadir al carrito</a>
 			</div>
 				
 		</div>	
 		<hr>
-			
-		<!-- <div class="span6">
-			
-			<p>
-			<input name="star1" type="radio" class="star"/>
-			<input name="star1" type="radio" class="star"/>
-			<input name="star1" type="radio" class="star"/>
-			<input name="star1" type="radio" class="star"/>
-			<input name="star1" type="radio" class="star"/>&nbsp;&nbsp;
-			</p>
-		</div>	 -->
-
-	   
+		
 		<div class="row">
 			<div class="span9">
 			    <div class="tabbable">
 				    <ul class="nav nav-tabs">
-					    <li class="active"><a href="#1" data-toggle="tab">Descripcion</a></li>
-					    <li><a href="#2" data-toggle="tab">Comentarios</a></li>
+					    <li class="active"><a href="#tab1" data-toggle="tab">Descripcion</a></li>
+					    <li><a href="#tab2" data-toggle="tab">Comentarios</a></li>
 				    </ul>
 				    <div class="tab-content">
-					    <div class="tab-pane active" id="1">
+					    <div class="tab-pane active" id="tab1">
 					    	<p><?php echo $producto[0]->getDescripcion()?></p>
 					    </div>
-					    <div class="tab-pane" id="2">
+					    <div class="tab-pane" id="tab2">
 					    <?php if($comentarios == NULL){ ?>
 					    		<p>No hay comentarios sobre este producto</p>
 					    <?php }else{ ?>
@@ -96,11 +72,12 @@
 						    		<h4><?php echo $comentario->getTitulo()?></h4><h6>por <?php echo $comentario->getAutor()?></h6>
 						    		<p>Valoracion: <?php echo $comentario->getValoracion()?>/5</p>
 						    		<p><?php echo $comentario->getTexto()?></p>
-				    				<?php if($comentario->comprobarAutor($comentario->getComentarioId(),$_SESSION["currentuser"])){ //Si el usuario actual es el autor del comentario puede editar/eliminar?>
+				    				<?php if($comentario->comprobarAutor($comentario->getComentarioId(),$_SESSION["currentuser"]) ||
+				    					$comentario->esAdmin($_SESSION["currentuser"])){ //Si el usuario actual es el autor del comentario puede editar/eliminar?>
 				    					
 				    					<a data-toggle="modal" data-target="#modificarcomentario<?php echo $comentario->getComentarioId()?>" ><i class="icon-pencil" ></i></a>
 						    			
-						    			<a onclick="javascript:return confirmar();" href="index.php?controller=producto&action=bajaComentario&amp;idComentario=<?php echo $comentario->getComentarioId()?>&amp;idProducto=<?php echo $comentario->getProductoId()?>">
+						    			<a onclick="javascript:return confirmar();" href="index.php?controller=producto&amp;action=bajaComentario&amp;idComentario=<?php echo $comentario->getComentarioId()?>&amp;idProducto=<?php echo $comentario->getProductoId()?>">
 							    			<i class="icon-remove-sign" ></i>
 						    			</a>
 
@@ -219,13 +196,12 @@
 						              	</div>
 						              	<div class="control-group">
 							  				<label class="control-label">Texto</label>
-								  				<div class="controls docs-input-sizes">
-								  					<textarea placeholder="Escribe tu opinión sobre el producto, máximo 500 caracteres"class="span4"rows="4" cols="50" name="texto"></textarea>
-								                </div>
+							  				<div class="controls docs-input-sizes">
+							  					<textarea placeholder="Escribe tu opinión sobre el producto, máximo 500 caracteres"class="span4"rows="4" cols="50" name="texto"></textarea>
+							                </div>
 									  	</div>
-						       		
-						      </div> <!--End modal body -->
-						      <div class="modal-footer">
+						      	</div> <!--End modal body -->
+						      	<div class="modal-footer">
 						        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
 						        <button type="submit" class="btn btn-primary">Enviar</button>
 						        </fieldset>
@@ -244,6 +220,7 @@
 </div>	 
 	 
 <script src="js/jquery.min.js"></script>
+<script src="js/jquery.validate.js"></script>
 <script>
 function confirmar (){
 		      rc = confirm("¿Seguro que desea eliminar este comentario?");
