@@ -147,14 +147,15 @@ INSERT INTO DB_TIENDA.usuarios(us_id,us_email,us_username,us_password,us_nombre,
     ('4','user@user.com','user','$2y$10$0UQCDSRowRBnJXnOcS5QYeTjjo4xh8b/l6DTZZWZ35j4Bnacgk5/m','Tomas','Tomas','Lugo','00000','111222333','1'),
     ('5','random@hey.com','random','$2y$10$0UQCDSRowRBnJXnOcS5QYeTjjo4xh8b/l6DTZZWZ35j4Bnacgk5/m','Samuel','Samuel','Pontevedra','00000','111222333','1'),
     ('6','alejandro@kromoly.com','alex','$2y$10$0UQCDSRowRBnJXnOcS5QYeTjjo4xh8b/l6DTZZWZ35j4Bnacgk5/m','Alex','Alex','Santiago','00000','111222333','2'),
-    ('7','javi@uourense.com','javi','$2y$10$0UQCDSRowRBnJXnOcS5QYeTjjo4xh8b/l6DTZZWZ35j4Bnacgk5/m','Oscar','Maximo','Coruña','00000','111222333','2');
+    ('7','javi@uourense.com','javi','$2y$10$0UQCDSRowRBnJXnOcS5QYeTjjo4xh8b/l6DTZZWZ35j4Bnacgk5/m','Oscar','Maximo','Coruña','00000','111222333','2'),
+    ('8','tienda@prueba.com','alex','$2y$10$0UQCDSRowRBnJXnOcS5QYeTjjo4xh8b/l6DTZZWZ35j4Bnacgk5/m','Alex','Alex','Santiago','00000','111222333','2'),;
 
 INSERT INTO DB_TIENDA.tiendas(tienda_id, tienda_nombre, tienda_direccion, tienda_telefono, tienda_email, fk_us_id) 
 VALUES 
     ('1','BiciTotal S.L.','Avenida Castelao 15, 36210, Vigo','934323243','info@bicitotal.es','2'),    
-    ('2','VigoBike CO.','Carretera Camposantos, 23423, Porriño','698321223','info@vigobike.es','3'),    
+    ('2','VigoBike CO.','Rua Emilia pardo Bazán 33, 36204, Vigo','698321223','info@vigobike.es','3'),    
     ('3','DadBikes S.A.','Otero Pedrayo 33, 34234, Ourense','932342345','info@dadbikes.es','7'),    
-    ('4','Cromoly Distribution','Pi y Margall  115, 34232, Vigo','683832343','info@cromoly.es','6');
+    ('4','Cromoly Distribution','Pi y Margall  115, 34232, Vigo','683832343','info@crmly.es','6');
     
 INSERT INTO DB_TIENDA.producto(producto_id, producto_nombre, producto_modalidad, producto_categoria,
                                   producto_descripcion, producto_precio, producto_cantidad, producto_foto, 

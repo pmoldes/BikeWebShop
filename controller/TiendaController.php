@@ -20,10 +20,11 @@ class TiendaController extends BaseController {
       $us_id=$this->tienda->obtenerID($_SESSION["currentuser"]);//obtener id a partir del email
       if(!$this->tienda->existeTienda($us_id))
         $this->view->render("tienda", "altatienda");
-      else
+      else{
         $ti_datos = $this->tienda->consultarTienda($us_id);
         $this->view->setVariable("ti_datos",$ti_datos);
         $this->view->render("tienda", "mitienda");
+      }
     }
 
   }

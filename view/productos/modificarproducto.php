@@ -270,7 +270,7 @@
       },
       producto_precio: {
         required: true,
-    	  digits: true
+    	  number: true
       },
       producto_cantidad: {
         required: true,

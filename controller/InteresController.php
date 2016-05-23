@@ -54,11 +54,10 @@ class InteresController extends BaseController {
 
 				    	$email->enviarEmailMuestraInteresComprador();
               $email->enviarEmailMuestraInteresVendedor();
-
-	      			$this->view->setFlash("Has mostrado interés por los productos");
-				    	unset($_SESSION['carrito']);
-				    	$this->view->redirect("interes", "consultarInteresComprador");
 			    	}
+            $this->view->setFlash("Has mostrado interés por los productos");
+            unset($_SESSION['carrito']);
+            $this->view->redirect("interes", "consultarInteresComprador");
 		    	}
   }
 

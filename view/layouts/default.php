@@ -46,7 +46,7 @@
 					<span class="glyphicon glyphicon-home"></span><a href="index.php">Inicio</a> |
 					<span class="glyphicon glyphicon-user"></span><a href="index.php?controller=usuario&amp;action=miCuenta">Mi Cuenta</a> |
 					<span class="glyphicon glyphicon-shopping-cart"></span><a href="index.php?controller=producto&amp;action=verCarrito">Carrito</a> |
-					<span class="glyphicon glyphicon-envelope"></span><a href="index.php?controller=usuario&amp;action=about">Contacto</a>
+					<span class="glyphicon glyphicon-envelope"></span><a href="mailto:info@bikewebshop.roisoftstudio.com">Contacto</a>
 				</div>
 			</div>
 		</div><!-- end header -->
@@ -108,7 +108,7 @@
 							<li><a href="index.php">Inicio</a></li>
 							<li><a href="index.php?controller=usuario&amp;action=miCuenta">Mi Cuenta</a></li>
 							<li><a href="index.php?controller=producto&amp;action=verCarrito">Carrito</a></li>
-							<li><a href="index.php?controller=usuario&amp;action=about">Contacto</a></li>
+							<li><a href="mailto:info@bikewebshop.roisoftstudio.com">Contacto</a></li>
 						</ul>
 					</div>
 					<div class="span4">
@@ -127,7 +127,7 @@
 						<ul>
 							<li><a href="index.php?controller=usuario&amp;action=about">Sobre nosotros</a></li>
 							<li><a href="#">Quienes somos</li>
-							<li><a href="#">Contacto</li>
+							<li><a href="mailto:info@bikewebshop.roisoftstudio.com">Contacto</li>
 						</ul>
 					</div>
 			</div>
