@@ -7,6 +7,7 @@
  $productos = $view->getVariable("productos");
  $categorias = $view->getVariable("categorias");
  $indice = $view->getVariable("indice");
+ $totalInteres = 0;
 
 ?>
 
@@ -47,12 +48,21 @@
 					</td>
 					<td class="vertical-center_text"><?php echo $prod["nombre"]?></td>
 					<td class="vertical-center_text"><?php echo $prod["precio"]?>€</td>
+					<?php $totalInteres +=  $prod["precio"];?>
 					<td class="horizontal-center_text vertical-center_text">
 						<a onclick="javascript:return confirmarEliminar();" href="index.php?controller=producto&amp;action=eliminarDeCarrito&amp;id=<?php echo $prod["id"]?>"><span  class="glyphicon glyphicon-remove"></span></a>
 					</td>
 			  </tr>
 	  		<?php } ?>
 			</tbody>
+			<tfoot>
+    				<tr>
+				      <td><b>Total</b></td>
+				      <td></td>
+				      <td><b><?php echo $totalInteres?>€</b></td>
+				      <td></td>
+    				</tr>
+  		</tfoot>
 		  </table>
 		  <div class="pull-right">
 				<a onclick="javascript:return confirmarVaciar();" href="index.php?controller=producto&amp;action=vaciarCarrito" class="btn btn-primary">Vaciar carrito</a>
