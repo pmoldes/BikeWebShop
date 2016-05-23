@@ -28,7 +28,6 @@ class UsuarioController extends BaseController {
   public function about(){
     $this->view->setlayout('default');
     $categorias = $this->producto->getCategorias();
-    $populares = $this->producto->getProductosPopulares();
     $this->view->render("usuario", "about"); 
   }
 

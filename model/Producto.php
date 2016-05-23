@@ -218,7 +218,7 @@ class Producto {
   }
 
   public function getProductosAleatorios(){
-    $stmt = $this->db->prepare("SELECT * FROM producto
+    $stmt = $this->db->prepare("SELECT * FROM producto WHERE producto_eliminado != 1
                                 ORDER BY RAND()
                                 LIMIT 8");  
     $stmt -> execute();
