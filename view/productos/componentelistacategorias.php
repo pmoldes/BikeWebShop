@@ -10,7 +10,7 @@
 		data-parent="custom-collapse" data-target="#side-menu-collapse">
 	    <span><li>Categorias</li></span>
 	</div>
-	<ul class="list-group collapse in product_list" id="side-menu-collapse">
+	<ul class="list-group collapse in product_list .hidden-phone" id="side-menu-collapse">
 	  <ul>
 	    <?php foreach ($categorias as $cat){ ?>
 	    <li class="list-group-item dropdown-toggle">

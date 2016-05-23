@@ -299,7 +299,7 @@ class ProductoController extends BaseController {
 
   public function vaciarCarrito(){
     unset($_SESSION['carrito']);
-    $this->view->redirect("producto","consultarcarrito");
+    $this->view->redirect("producto","verCarrito");
   }
 }
 

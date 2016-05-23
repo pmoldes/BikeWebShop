@@ -48,14 +48,14 @@
 					<td class="vertical-center_text"><?php echo $prod["nombre"]?></td>
 					<td class="vertical-center_text"><?php echo $prod["precio"]?>€</td>
 					<td class="horizontal-center_text vertical-center_text">
-						<a href="index.php?controller=producto&amp;action=eliminarDeCarrito&amp;id=<?php echo $prod["id"]?>"><span  class="glyphicon glyphicon-remove"></span></a>
+						<a onclick="javascript:return confirmarEliminar();" href="index.php?controller=producto&amp;action=eliminarDeCarrito&amp;id=<?php echo $prod["id"]?>"><span  class="glyphicon glyphicon-remove"></span></a>
 					</td>
 			  </tr>
 	  		<?php } ?>
 			</tbody>
 		  </table>
 		  <div class="pull-right">
-				<a href="index.php?controller=producto&amp;action=vaciarCarrito" class="btn btn-primary">Vaciar carrito</a>
+				<a onclick="javascript:return confirmarVaciar();" href="index.php?controller=producto&amp;action=vaciarCarrito" class="btn btn-primary">Vaciar carrito</a>
 				<a href="index.php?controller=producto&amp;action=verCarrito" class="btn btn-primary">Actualizar</a>
 		    <?php if(isset($_SESSION["currentuser"])){ ?>
 		    	<button type="button" class="btn btn-primary pull right"	data-toggle="modal" data-target="#modalConfirm">Mostrar interés</button>
@@ -87,6 +87,21 @@
 	<?php } ?>	
 </div>
 </div>
+
+<script>
+
+function confirmarEliminar ()
+		  {
+		      rc = confirm("¿Seguro que desea eliminar este producto del carrito?");
+		      return rc;
+		  }
+
+function confirmarVaciar ()
+		  {
+		      rc = confirm("¿Seguro que desea vaciar su carrito?");
+		      return rc;
+		  }
+</script>
 
 
 
